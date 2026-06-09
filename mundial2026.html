@@ -221,7 +221,10 @@ select:hover,.btn:hover{border-color:var(--green);background:var(--mid)}
     <button class="ntab" onclick="showPhase('r8',this)">Cuartos</button>
     <button class="ntab" onclick="showPhase('semi',this)">Semis</button>
     <button class="ntab" onclick="showPhase('final',this)">Final</button>
-    <div class="nav-right"><button class="btn btn-green" onclick="exportAll()">⬇ Exportar .ics</button></div>
+    <div class="nav-right" style="display:flex;gap:8px;align-items:center">
+      <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:transparent;border:1px solid rgba(165,201,14,.25);border-radius:10px;color:#758AA9;font-size:12px;font-family:'JetBrains Mono',monospace;text-decoration:none;transition:all .2s" onmouseover="this.style.borderColor='#A5C90E';this.style.color='#A5C90E'" onmouseout="this.style.borderColor='rgba(165,201,14,.25)';this.style.color='#758AA9'">← Inicio</a>
+      <button class="btn btn-green" onclick="exportAll()">⬇ Exportar .ics</button>
+    </div>
   </div>
 </nav>
 <main class="main">
