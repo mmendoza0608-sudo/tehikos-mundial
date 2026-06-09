@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TEHIKOS · FIFA Mundial 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+:root{--green:#A5C90E;--green-dark:#7D9A0A;--gold:#C5F122;--dark:#141820;--dark2:#1A2030;--dark3:#202840;--mid:#2A3350;--border:rgba(165,201,14,.18);--text:#E8ECF4;--muted:#758AA9;--radius:10px;--radius-lg:16px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);font-size:14px;line-height:1.6;min-height:100vh}
+.hero{background:var(--dark2);border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.hero-deco{position:absolute;right:-60px;top:-60px;width:480px;height:480px;border-radius:50%;border:1px solid rgba(165,201,14,.07);pointer-events:none}
+.hero-deco::after{content:'';position:absolute;inset:50px;border-radius:50%;border:1px solid rgba(165,201,14,.06)}
+.hero-inner{max-width:1200px;margin:0 auto;padding:48px 24px 32px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:end}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;color:var(--green);text-transform:uppercase;margin-bottom:10px}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,8vw,90px);line-height:.92;color:#fff;margin-bottom:14px}
+.hero h1 span{color:var(--green)}
+.hero-stats{display:flex;gap:24px;flex-wrap:wrap;margin-top:16px}
+.hstat strong{font-family:'Bebas Neue',sans-serif;font-size:26px;color:#C5F122;display:block;line-height:1}
+.hstat span{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.hero-right{text-align:right;display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+.trophy{font-size:68px;line-height:1;animation:glow 3s ease-in-out infinite}
+@keyframes glow{0%,100%{filter:drop-shadow(0 0 16px rgba(201,168,76,.3))}50%{filter:drop-shadow(0 0 32px rgba(201,168,76,.6))}}
+.countdown{display:flex;gap:6px}
+.cdu{background:var(--mid);border:1px solid var(--border);border-radius:var(--radius);padding:8px 10px;text-align:center;min-width:50px}
+.cdu strong{display:block;font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--green);line-height:1}
+.cdu span{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.nav{background:var(--dark2);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;overflow-x:auto;scrollbar-width:none}
+.nav-inner::-webkit-scrollbar{display:none}
+.ntab{font-family:'JetBrains Mono',monospace;font-size:11px;padding:13px 18px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;background:none;border-top:none;border-left:none;border-right:none;text-transform:uppercase;letter-spacing:.06em;transition:color .2s,border-color .2s}
+.ntab:hover{color:var(--text)}.ntab.active{color:var(--green);border-bottom-color:var(--green)}
+.nav-right{margin-left:auto;display:flex;gap:8px;align-items:center;padding:7px 0;flex-shrink:0}
+.main{max-width:1200px;margin:0 auto;padding:28px 24px}
+select,.btn{background:var(--dark3);border:1px solid var(--border);color:var(--text);font-family:'Inter',sans-serif;font-size:13px;padding:7px 13px;border-radius:var(--radius);cursor:pointer;transition:border-color .2s,background .2s;-webkit-appearance:none;appearance:none}
+select{padding-right:26px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%237A9184'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 9px center}
+select:hover,.btn:hover{border-color:var(--green);background:var(--mid)}
+.btn-green{background:var(--green);border-color:var(--green);color:#141820;font-weight:700}
+.btn-green:hover{background:var(--green-dark);border-color:var(--green-dark)}
+.btn-gold{background:var(--gold);border-color:var(--gold);color:var(--dark);font-weight:600}
+.btn-gold:hover{opacity:.85}
+.toolbar{display:flex;gap:8px;align-items:center;margin-bottom:22px;flex-wrap:wrap}
+.tlabel{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.phase{display:none}.phase.active{display:block}
+.groups-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:16px}
+.gcard{background:var(--dark2);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;transition:border-color .2s}
+.gcard:hover{border-color:rgba(165,201,14,.35)}
+.gcard-head{padding:10px 14px;background:var(--dark3);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.gletter{font-family:'Bebas Neue',sans-serif;font-size:19px;color:var(--green)}
+.gbtn{background:none;border:1px solid var(--border);color:var(--muted);border-radius:6px;padding:3px 8px;font-size:10px;cursor:pointer;transition:all .2s;font-family:'JetBrains Mono',monospace}
+.gbtn:hover{color:var(--green);border-color:var(--green)}
+.mrow{padding:9px 14px;border-top:1px solid rgba(255,255,255,.04);display:grid;grid-template-columns:1fr 108px 1fr;align-items:center;gap:6px;transition:background .15s}
+.mrow:hover{background:rgba(165,201,14,.06)}
+.thome{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:500;cursor:pointer}
+.thome:hover .tname,.taway:hover .tname{color:var(--green);text-decoration:underline}
+.taway{display:flex;align-items:center;justify-content:flex-end;gap:7px;font-size:13px;font-weight:500;cursor:pointer;text-align:right}
+.flag{font-size:17px;flex-shrink:0}
+.mcenter{text-align:center;display:flex;flex-direction:column;align-items:center;gap:1px}
+.mdate{font-size:10px;color:var(--green);font-family:'JetBrains Mono',monospace;white-space:nowrap}
+.score-wrap{display:flex;align-items:center;gap:5px;margin:3px 0}
+.score-block{display:flex;align-items:center;gap:2px}
+.sc-btn{width:18px;height:18px;background:var(--dark3);border:1px solid var(--border);color:var(--muted);border-radius:4px;cursor:pointer;font-size:13px;line-height:1;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;padding:0}
+.sc-btn:hover{border-color:var(--green);color:var(--green);background:rgba(0,168,107,.1)}
+.sc-val{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--text);min-width:22px;text-align:center;line-height:1}
+.sc-val.has-score{color:#fff}
+.score-sep{font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--border);margin:0 1px}
+.mvenue{font-size:9px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:104px}
+.calb{background:none;border:1px solid rgba(0,168,107,.2);color:var(--muted);border-radius:5px;padding:1px 6px;font-size:9px;cursor:pointer;transition:all .2s;font-family:'JetBrains Mono',monospace;margin-top:2px}
+.calb:hover{color:var(--green);border-color:var(--green);background:rgba(165,201,14,.09)}
+.prob-bar{display:flex;height:4px;border-radius:2px;overflow:hidden;margin:2px 0;width:100%}
+.pb-h{background:var(--green);transition:width .4s}
+.pb-d{background:var(--muted);transition:width .4s}
+.pb-a{background:var(--gold);transition:width .4s}
+.prob-labels{display:flex;justify-content:space-between;font-size:9px;color:var(--muted);width:100%;font-family:'JetBrains Mono',monospace}
+.std-wrap{padding:0 14px 12px;border-top:1px solid var(--border)}
+.std-table{width:100%;border-collapse:collapse;font-size:11px;margin-top:4px}
+.std-table th{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:6px 6px;text-align:center;border-bottom:1px solid var(--border)}
+.std-table th:nth-child(2){text-align:left}
+.std-table td{padding:6px 6px;text-align:center;border-bottom:1px solid rgba(255,255,255,.03);color:var(--text)}
+.std-table td:nth-child(2){text-align:left;font-size:12px}
+.std-table tr:last-child td{border-bottom:none}
+.std-table tr:hover td{background:rgba(0,168,107,.04)}
+.tdname{display:flex;align-items:center;gap:5px;cursor:pointer}
+.tdname:hover{color:var(--green)}
+.qual-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;display:inline-block}
+.q1{background:var(--green)}.q2{background:var(--gold)}.q3{background:var(--muted)}
+.pts{font-family:'Bebas Neue',sans-serif;font-size:15px;color:var(--green)}
+.gd-pos{color:var(--green)}.gd-neg{color:#e06060}
+.ko-title{font-family:'Bebas Neue',sans-serif;font-size:30px;color:#fff;margin-bottom:14px;letter-spacing:.03em}
+.ko-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px;margin-bottom:28px}
+.kocard{background:var(--dark2);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;transition:border-color .2s}
+.kocard:hover{border-color:rgba(165,201,14,.35)}
+.kocard-head{background:var(--dark3);padding:7px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border)}
+.kolabel{font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.07em}
+.kocard-body{padding:12px 14px}
+.ko-team{display:flex;align-items:center;gap:9px;padding:7px 0;cursor:pointer}
+.ko-team+.ko-team{border-top:1px solid rgba(255,255,255,.05)}
+.ko-team:hover .ko-tname{color:var(--green)}
+.ko-team .flag{font-size:20px}
+.ko-tname{font-size:13px;font-weight:500}
+.ko-meta{margin-top:8px;display:flex;justify-content:space-between;align-items:center}
+.ko-date{font-size:10px;color:var(--green);font-family:'JetBrains Mono',monospace}
+.ko-venue{font-size:9px;color:var(--muted)}
+.final-wrap{display:flex;justify-content:center;padding:16px 0}
+.final-card{background:var(--dark2);border:1px solid var(--gold);border-radius:var(--radius-lg);padding:28px;text-align:center;max-width:460px;width:100%}
+.final-label{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--gold);margin-bottom:10px}
+.final-trophy{font-size:60px;margin-bottom:10px}
+.final-teams{font-family:'Bebas Neue',sans-serif;font-size:34px;color:#fff;letter-spacing:.03em;margin-bottom:6px}
+.final-date{font-size:12px;color:var(--muted);margin-bottom:14px}
+.final-venue{font-size:11px;color:var(--gold);font-family:'JetBrains Mono',monospace}
+/* TEAM MODAL */
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:500;align-items:center;justify-content:center;padding:16px}
+.modal-ov.open{display:flex}
+.modal{background:var(--dark2);border:1px solid var(--border);border-radius:var(--radius-lg);width:100%;max-width:660px;max-height:90vh;overflow-y:auto;position:relative}
+.modal-head{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--dark2);z-index:2}
+.modal-title{font-family:'Bebas Neue',sans-serif;font-size:26px;color:#fff;letter-spacing:.03em}
+.modal-close{background:none;border:1px solid var(--border);color:var(--muted);border-radius:6px;width:30px;height:30px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.modal-close:hover{color:var(--text);border-color:var(--text)}
+.modal-body{padding:18px 20px}
+.coach-row{display:flex;align-items:center;gap:14px;background:var(--dark3);border-radius:var(--radius);padding:12px 14px;margin-bottom:10px}
+.coach-avatar{width:40px;height:40px;border-radius:50%;background:var(--mid);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.coach-info h4{font-size:13px;font-weight:600;color:var(--text)}
+.coach-info p{font-size:11px;color:var(--muted)}
+.sec-title{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--green);margin-bottom:9px;margin-top:16px}
+.bio-box{font-size:12px;color:var(--muted);line-height:1.6;padding:10px 13px;background:var(--dark3);border-radius:var(--radius);border-left:2px solid var(--green)}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:4px}
+.stat-box{background:var(--dark3);border-radius:var(--radius);padding:10px;text-align:center}
+.stat-val{font-family:'Bebas Neue',sans-serif;font-size:22px;color:#C5F122;display:block;line-height:1}
+.stat-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+/* LINEUP */
+.lineup-pitch{background:var(--dark3);border-radius:var(--radius-lg);padding:16px;border:1px solid var(--border);position:relative;overflow:hidden}
+.pitch-lines{position:absolute;inset:0;pointer-events:none;opacity:.06}
+.pos-row{display:flex;justify-content:center;gap:8px;margin-bottom:10px}
+.pos-row:last-child{margin-bottom:0}
+/* PLAYER CHIP with tooltip */
+.pchip{background:var(--mid);border:1px solid var(--border);border-radius:8px;padding:6px 10px;text-align:center;min-width:76px;cursor:pointer;transition:all .2s;position:relative}
+.pchip:hover{border-color:var(--green);background:rgba(165,201,14,.12);z-index:10}
+.p-num{font-family:'Bebas Neue',sans-serif;font-size:15px;color:var(--green);line-height:1}
+.p-name{font-size:10px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:72px}
+.p-pos{font-size:9px;color:var(--muted)}
+/* PLAYER TOOLTIP */
+.player-tooltip{display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--dark);border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px;min-width:200px;z-index:200;box-shadow:0 8px 24px rgba(0,0,0,.6);pointer-events:none}
+.pchip:hover .player-tooltip{display:block}
+.pt-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px}
+.pt-row{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:2px}
+.pt-val{color:var(--text);font-weight:500}
+.pt-club{font-size:11px;color:var(--green);margin-top:4px;font-family:'JetBrains Mono',monospace}
+/* Tooltip arrow */
+.player-tooltip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--border)}
+/* Cards section */
+.cards-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.card-pill{display:flex;align-items:center;gap:6px;background:var(--dark3);border-radius:6px;padding:4px 10px;font-size:11px;color:var(--text)}
+.yc{width:12px;height:17px;background:#f5a623;border-radius:3px;flex-shrink:0}
+.rc{width:12px;height:17px;background:#e63946;border-radius:3px;flex-shrink:0}
+/* EXPORT BANNER */
+.exp-banner{margin-top:28px;background:var(--dark2);border:1px solid var(--border);border-left:3px solid var(--green);border-radius:var(--radius-lg);padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.exp-banner h3{font-size:14px;font-weight:600;margin-bottom:3px}
+.exp-banner p{font-size:11px;color:var(--muted)}
+.exp-actions{display:flex;gap:8px;flex-wrap:wrap}
+.inst{margin-top:12px;background:var(--dark3);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px 22px;display:none}
+.inst.open{display:block}
+.inst h4{font-size:13px;font-weight:600;color:var(--green);margin-bottom:10px}
+.inst-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.inst-block h5{font-size:11px;font-weight:600;color:var(--gold);margin-bottom:5px}
+.inst-block li{font-size:11px;color:var(--muted);margin-bottom:3px;margin-left:14px}
+.inst-block li strong{color:var(--text)}
+.legend{display:flex;gap:14px;font-size:10px;color:var(--muted);margin-top:8px;flex-wrap:wrap}
+.leg-item{display:flex;align-items:center;gap:5px}
+.toast{position:fixed;bottom:22px;right:22px;background:var(--green);color:var(--dark);padding:10px 18px;border-radius:var(--radius);font-size:12px;font-weight:600;z-index:999;transform:translateY(70px);opacity:0;transition:all .3s;pointer-events:none}
+.toast.show{transform:translateY(0);opacity:1}
+@media(max-width:700px){.hero-inner{grid-template-columns:1fr;padding:36px 16px 22px}.hero-right{display:none}.groups-grid{grid-template-columns:1fr}.ko-grid{grid-template-columns:1fr}.inst-grid{grid-template-columns:1fr}.main{padding:18px 14px}.stats-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:400px){.mrow{grid-template-columns:1fr 96px 1fr;gap:3px}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-deco"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="eyebrow" style="display:flex;align-items:center;gap:12px">
+        <svg width="44" height="22" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="8" cy="50" r="8" fill="#A5C90E"/>
+          <rect x="28" y="20" width="68" height="14" rx="7" fill="#A5C90E"/>
+          <rect x="28" y="20" width="14" height="60" fill="#A5C90E"/>
+          <rect x="28" y="66" width="56" height="14" rx="7" fill="#A5C90E"/>
+          <circle cx="90" cy="73" r="10" fill="#A5C90E"/>
+          <circle cx="112" cy="27" r="10" fill="#758AA9"/>
+          <rect x="106" y="20" width="68" height="14" rx="7" fill="#758AA9"/>
+          <rect x="160" y="20" width="14" height="60" fill="#758AA9"/>
+          <rect x="118" y="66" width="56" height="14" rx="7" fill="#758AA9"/>
+          <circle cx="192" cy="50" r="8" fill="#758AA9"/>
+        </svg>
+        <span>TEHIKOS · FIFA MUNDIAL 2026 · 11 Jun – 19 Jul</span>
+      </div>
+      <h1>MUNDIAL<br><span>2026</span></h1>
+      <div class="hero-stats">
+        <div class="hstat"><strong>48</strong><span>Selecciones</span></div>
+        <div class="hstat"><strong>104</strong><span>Partidos</span></div>
+        <div class="hstat"><strong>16</strong><span>Estadios</span></div>
+        <div class="hstat"><strong>3</strong><span>Países sede</span></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="trophy">🏆</div>
+      <div class="countdown">
+        <div class="cdu"><strong id="cd-d">--</strong><span>días</span></div>
+        <div class="cdu"><strong id="cd-h">--</strong><span>hrs</span></div>
+        <div class="cdu"><strong id="cd-m">--</strong><span>min</span></div>
+        <div class="cdu"><strong id="cd-s">--</strong><span>seg</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<nav class="nav">
+  <div class="nav-inner">
+    <button class="ntab active" onclick="showPhase('groups',this)">Grupos</button>
+    <button class="ntab" onclick="showPhase('r32',this)">16avos</button>
+    <button class="ntab" onclick="showPhase('r16',this)">Octavos</button>
+    <button class="ntab" onclick="showPhase('r8',this)">Cuartos</button>
+    <button class="ntab" onclick="showPhase('semi',this)">Semis</button>
+    <button class="ntab" onclick="showPhase('final',this)">Final</button>
+    <div class="nav-right"><button class="btn btn-green" onclick="exportAll()">⬇ Exportar .ics</button></div>
+  </div>
+</nav>
+<main class="main">
+  <div id="phase-groups" class="phase active">
+    <div class="toolbar">
+      <span class="tlabel">Filtrar</span>
+      <select id="filterGroup" onchange="renderGroups()">
+        <option value="all">Todos los grupos</option>
+        <option value="A">Grupo A</option><option value="B">Grupo B</option>
+        <option value="C">Grupo C</option><option value="D">Grupo D</option>
+        <option value="E">Grupo E</option><option value="F">Grupo F</option>
+        <option value="G">Grupo G</option><option value="H">Grupo H</option>
+        <option value="I">Grupo I</option><option value="J">Grupo J</option>
+        <option value="K">Grupo K</option><option value="L">Grupo L</option>
+      </select>
+      <button class="btn" onclick="toggleInst()">📲 Agregar al calendario</button>
+    </div>
+    <div class="inst" id="inst">
+      <h4>Instrucciones de importación</h4>
+      <div class="inst-grid">
+        <div class="inst-block"><h5>🍎 iPhone / iPad</h5><ol>
+          <li>Descarga el archivo <strong>.ics</strong></li>
+          <li>iOS abre la app <strong>Calendario</strong> automáticamente</li>
+          <li>Toca <strong>"Agregar todos"</strong> para confirmar</li>
+        </ol></div>
+        <div class="inst-block"><h5>🤖 Android / Google Calendar</h5><ol>
+          <li>Descarga el archivo <strong>.ics</strong></li>
+          <li>Abre <strong>calendar.google.com</strong> en el navegador</li>
+          <li>Ve a <strong>Configuración → Importar</strong></li>
+        </ol></div>
+      </div>
+    </div>
+    <div class="legend">
+      <span class="leg-item"><span class="qual-dot q1"></span>Clasifican directo</span>
+      <span class="leg-item"><span class="qual-dot q2"></span>Mejor 3er lugar</span>
+      <span class="leg-item"><span class="qual-dot q3"></span>Eliminados</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;margin-top:6px">
+      <span style="font-size:10px;color:var(--muted)">Horarios en tu zona:</span>
+      <span style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--green);background:var(--dark3);padding:2px 8px;border-radius:4px;border:1px solid var(--border)" id="tz-badge"></span>
+    </div>
+    <div style="height:14px"></div>
+    <div class="groups-grid" id="groups-container"></div>
+  </div>
+  <div id="phase-r32" class="phase">
+    <div class="ko-title">Ronda de 16 (Dieciseisavos)</div>
+    <div class="ko-grid" id="r32-cont"></div>
+  </div>
+  <div id="phase-r16" class="phase">
+    <div class="ko-title">Octavos de final</div>
+    <div class="ko-grid" id="r16-cont"></div>
+  </div>
+  <div id="phase-r8" class="phase">
+    <div class="ko-title">Cuartos de final</div>
+    <div class="ko-grid" id="r8-cont"></div>
+  </div>
+  <div id="phase-semi" class="phase">
+    <div class="ko-title">Semifinales</div>
+    <div class="ko-grid" id="semi-cont"></div>
+  </div>
+  <div id="phase-final" class="phase">
+    <div class="final-wrap" id="final-cont"></div>
+  </div>
+  <div class="exp-banner">
+    <div><h3>Exportar al calendario</h3><p>Formato .ics · compatible con iPhone, Android, Outlook</p></div>
+    <div class="exp-actions">
+      <button class="btn btn-gold" onclick="exportAll()">⬇ Todos los partidos</button>
+      <button class="btn" onclick="exportPhase('groups')">Solo grupos</button>
+      <button class="btn" onclick="exportPhase('ko')">Solo eliminatorias</button>
+    </div>
+  </div>
+</main>
+<div class="modal-ov" id="teamModal">
+  <div class="modal" id="teamModalContent"></div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const TEAMS = {
+"Argentina":{flag:"🇦🇷",group:"J",coach:"Lionel Scaloni",coachAge:46,formation:"4-3-3",ranking:1,confederation:"CONMEBOL",
+  players:[
+    {n:1,name:"E. Martínez",full:"Emiliano Martínez",pos:"GK",club:"Aston Villa",age:32,caps:51,goals:0},
+    {n:13,name:"G. Rulli",full:"Gerónimo Rulli",pos:"GK",club:"Ajax",age:32,caps:18,goals:0},
+    {n:4,name:"G. Montiel",full:"Gonzalo Montiel",pos:"RB",club:"Sevilla",age:27,caps:38,goals:1},
+    {n:3,name:"N. Tagliafico",full:"Nicolás Tagliafico",pos:"LB",club:"Lyon",age:31,caps:72,goals:4},
+    {n:2,name:"C. Romero",full:"Cristian Romero",pos:"CB",club:"Tottenham",age:26,caps:37,goals:3},
+    {n:19,name:"L. Martínez",full:"Lisandro Martínez",pos:"CB",club:"Manchester United",age:26,caps:28,goals:1},
+    {n:5,name:"L. Paredes",full:"Leandro Paredes",pos:"MF",club:"Roma",age:29,caps:60,goals:4},
+    {n:20,name:"A. Mac Allister",full:"Alexis Mac Allister",pos:"MF",club:"Liverpool",age:25,caps:34,goals:12},
+    {n:7,name:"R. De Paul",full:"Rodrigo De Paul",pos:"MF",club:"Atlético Madrid",age:30,caps:72,goals:13},
+    {n:11,name:"Á. Di María",full:"Ángel Di María",pos:"FW",club:"Benfica",age:36,caps:145,goals:31},
+    {n:10,name:"L. Messi",full:"Lionel Messi",pos:"FW",club:"Inter Miami",age:37,caps:187,goals:109},
+    {n:9,name:"J. Álvarez",full:"Julián Álvarez",pos:"FW",club:"Atlético Madrid",age:24,caps:40,goals:18}
+  ],
+  stats:{played:3,won:2,drawn:1,lost:0,gf:7,ga:2},yellowCards:["L. Paredes","G. Montiel"],redCards:[],
+  bio:"Campeona del mundo en Qatar 2022. Con Messi como capitán y Scaloni como arquitecto táctico, Argentina llega como máxima favorita."
+},
+"Polonia":{flag:"🇵🇱",group:"A_OLD",coach:"Michał Probierz",coachAge:51,formation:"4-2-3-1",ranking:28,confederation:"UEFA",
+  players:[
+    {n:1,name:"W. Szczęsny",full:"Wojciech Szczęsny",pos:"GK",club:"Juventus",age:34,caps:84,goals:0},
+    {n:2,name:"M. Cash",full:"Matty Cash",pos:"RB",club:"Aston Villa",age:27,caps:22,goals:1},
+    {n:5,name:"J. Bednarek",full:"Jan Bednarek",pos:"CB",club:"Southampton",age:28,caps:58,goals:2},
+    {n:3,name:"B. Salamon",full:"Bartosz Salamon",pos:"CB",club:"Lech Poznań",age:33,caps:30,goals:1},
+    {n:22,name:"T. Augustyniak",full:"Tymoteusz Augustyniak",pos:"LB",club:"Jagiellonia",age:26,caps:14,goals:0},
+    {n:10,name:"G. Krychowiak",full:"Grzegorz Krychowiak",pos:"MF",club:"Al-Shabab",age:34,caps:102,goals:6},
+    {n:14,name:"J. Szymański",full:"Jakub Szymański",pos:"MF",club:"Feyenoord",age:24,caps:18,goals:2},
+    {n:7,name:"K. Zieliński",full:"Piotr Zieliński",pos:"MF",club:"Napoli",age:30,caps:96,goals:22},
+    {n:11,name:"K. Świderski",full:"Karol Świderski",pos:"FW",club:"Charlotte FC",age:27,caps:42,goals:17},
+    {n:9,name:"R. Lewandowski",full:"Robert Lewandowski",pos:"FW",club:"Barcelona",age:36,caps:153,goals:82},
+    {n:20,name:"A. Buksa",full:"Adam Buksa",pos:"FW",club:"RC Lens",age:28,caps:29,goals:8}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"Polonia llega liderada por Lewandowski, el goleador histórico del equipo. Probierz busca dar un salto de calidad al combinado polaco."
+},
+"Arabia Saudita":{flag:"🇸🇦",group:"H",coach:"Roberto Mancini",coachAge:59,formation:"4-3-3",ranking:56,confederation:"AFC",
+  players:[
+    {n:1,name:"M. Al-Owais",full:"Mohammed Al-Owais",pos:"GK",club:"Al-Hilal",age:33,caps:60,goals:0},
+    {n:2,name:"S. Al-Ghanam",full:"Sultan Al-Ghanam",pos:"RB",club:"Al-Hilal",age:26,caps:20,goals:0},
+    {n:5,name:"A. Al-Amri",full:"Ali Al-Amri",pos:"CB",club:"Al-Hilal",age:26,caps:18,goals:0},
+    {n:6,name:"A. Al-Bulaihi",full:"Ali Al-Bulaihi",pos:"CB",club:"Al-Hilal",age:33,caps:54,goals:2},
+    {n:3,name:"Y. Al-Shahrani",full:"Yasser Al-Shahrani",pos:"LB",club:"Al-Hilal",age:31,caps:74,goals:1},
+    {n:8,name:"M. Kanno",full:"Mohamed Kanno",pos:"MF",club:"Al-Hilal",age:28,caps:46,goals:2},
+    {n:14,name:"A. Al-Malki",full:"Abdullah Al-Malki",pos:"MF",club:"Al-Qadsiah",age:28,caps:30,goals:3},
+    {n:17,name:"S. Al-Dawsari",full:"Salem Al-Dawsari",pos:"MF",club:"Al-Hilal",age:32,caps:88,goals:23},
+    {n:10,name:"F. Al-Muwallad",full:"Fahad Al-Muwallad",pos:"FW",club:"Al-Qadsiah",age:29,caps:68,goals:18},
+    {n:9,name:"A. Al-Obood",full:"Abdullah Al-Obood",pos:"FW",club:"Al-Hilal",age:28,caps:24,goals:6},
+    {n:11,name:"M. Al-Burayk",full:"Mohammad Al-Burayk",pos:"FW",club:"Al-Hilal",age:30,caps:40,goals:7}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"Arabia Saudita, dirigida por Mancini, busca repetir la épica victoria ante Argentina en Qatar 2022."
+},
+"Francia":{flag:"🇫🇷",group:"I",coach:"Didier Deschamps",coachAge:55,formation:"4-2-3-1",ranking:2,confederation:"UEFA",
+  players:[
+    {n:1,name:"M. Maignan",full:"Mike Maignan",pos:"GK",club:"AC Milan",age:29,caps:28,goals:0},
+    {n:2,name:"J. Koundé",full:"Jules Koundé",pos:"RB",club:"Barcelona",age:25,caps:46,goals:1},
+    {n:5,name:"D. Upamecano",full:"Dayot Upamecano",pos:"CB",club:"Bayern München",age:25,caps:32,goals:1},
+    {n:4,name:"I. Konaté",full:"Ibrahima Konaté",pos:"CB",club:"Liverpool",age:25,caps:16,goals:0},
+    {n:22,name:"T. Hernández",full:"Theo Hernández",pos:"LB",club:"AC Milan",age:26,caps:28,goals:5},
+    {n:14,name:"A. Tchouaméni",full:"Aurélien Tchouaméni",pos:"MF",club:"Real Madrid",age:24,caps:36,goals:4},
+    {n:8,name:"A. Camavinga",full:"Eduardo Camavinga",pos:"MF",club:"Real Madrid",age:21,caps:24,goals:1},
+    {n:7,name:"A. Griezmann",full:"Antoine Griezmann",pos:"MF",club:"Atlético Madrid",age:33,caps:137,goals:44},
+    {n:11,name:"O. Dembélé",full:"Ousmane Dembélé",pos:"FW",club:"Paris Saint-Germain",age:27,caps:56,goals:8},
+    {n:10,name:"K. Mbappé",full:"Kylian Mbappé",pos:"FW",club:"Real Madrid",age:25,caps:84,goals:48},
+    {n:9,name:"O. Giroud",full:"Olivier Giroud",pos:"FW",club:"Los Angeles FC",age:38,caps:137,goals:57}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"Campeona en 2018 y finalista en 2022. Mbappé lidera una generación brillante. Francia siempre candidata con Deschamps al mando."
+},
+"Dinamarca":{flag:"🇩🇰",group:"A_OLD",coach:"Kasper Hjulmand",coachAge:52,formation:"3-4-3",ranking:21,confederation:"UEFA",
+  players:[
+    {n:1,name:"K. Schmeichel",full:"Kasper Schmeichel",pos:"GK",club:"Anderlecht",age:37,caps:92,goals:0},
+    {n:5,name:"J. Andersen",full:"Joachim Andersen",pos:"CB",club:"Crystal Palace",age:27,caps:44,goals:3},
+    {n:4,name:"A. Christensen",full:"Andreas Christensen",pos:"CB",club:"Barcelona",age:28,caps:58,goals:3},
+    {n:3,name:"V. Kristiansen",full:"Victor Kristiansen",pos:"CB",club:"Leicester City",age:22,caps:16,goals:0},
+    {n:2,name:"N. Maehle",full:"Nikolaj Maehle",pos:"WB",club:"Wolfsburg",age:27,caps:44,goals:4},
+    {n:14,name:"M. Hjulmand",full:"Morten Hjulmand",pos:"MF",club:"Sporting CP",age:25,caps:22,goals:1},
+    {n:8,name:"T. Delaney",full:"Thomas Delaney",pos:"MF",club:"Anderlecht",age:32,caps:80,goals:7},
+    {n:10,name:"C. Eriksen",full:"Christian Eriksen",pos:"MF",club:"Manchester United",age:32,caps:130,goals:41},
+    {n:7,name:"P. Dolberg",full:"Kasper Dolberg",pos:"FW",club:"Eintracht Frankfurt",age:26,caps:40,goals:11},
+    {n:9,name:"R. Højlund",full:"Rasmus Højlund",pos:"FW",club:"Manchester United",age:21,caps:22,goals:9},
+    {n:11,name:"M. Damsgaard",full:"Mikkel Damsgaard",pos:"FW",club:"Brentford",age:24,caps:36,goals:6}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"Con Eriksen como cerebro creativo y Højlund como goleador joven, Dinamarca es siempre un equipo compacto y difícil de batir."
+},
+"Túnez":{flag:"🇹🇳",group:"B",coach:"Jalel Kadri",coachAge:52,formation:"4-3-3",ranking:30,confederation:"CAF",
+  players:[
+    {n:1,name:"A. Dahmen",full:"Aymen Dahmen",pos:"GK",club:"Stade de Reims",age:28,caps:22,goals:0},
+    {n:2,name:"M. Talbi",full:"Montassar Talbi",pos:"CB",club:"Rennes",age:26,caps:28,goals:1},
+    {n:5,name:"D. Bronn",full:"Dylan Bronn",pos:"CB",club:"Salernitana",age:29,caps:44,goals:2},
+    {n:3,name:"A. Abdi",full:"Ali Abdi",pos:"LB",club:"Parma",age:30,caps:32,goals:2},
+    {n:22,name:"H. Belalhouma",full:"Haythem Belalhouma",pos:"RB",club:"FC Zurich",age:26,caps:18,goals:0},
+    {n:8,name:"E. Chaalali",full:"Ellyes Skhiri",pos:"MF",club:"Eintracht Frankfurt",age:29,caps:56,goals:4},
+    {n:14,name:"A. Laidouni",full:"Aïssa Laïdouni",pos:"MF",club:"FC Watford",age:28,caps:30,goals:2},
+    {n:10,name:"H. Msakni",full:"Youssef Msakni",pos:"MF",club:"Espérance",age:34,caps:102,goals:26},
+    {n:7,name:"N. Sliti",full:"Naïm Sliti",pos:"FW",club:"Kasımpaşa",age:30,caps:54,goals:12},
+    {n:9,name:"Y. Jebali",full:"Issam Jebali",pos:"FW",club:"Odense",age:30,caps:42,goals:14},
+    {n:11,name:"W. Khazri",full:"Wahbi Khazri",pos:"FW",club:"Montpellier",age:33,caps:82,goals:26}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"Los Águilas de Cartago buscan superar la fase de grupos por primera vez desde 1978."
+},
+"Australia":{flag:"🇦🇺",group:"B",coach:"Tony Popovic",coachAge:51,formation:"4-3-3",ranking:23,confederation:"AFC",
+  players:[
+    {n:1,name:"M. Ryan",full:"Mathew Ryan",pos:"GK",club:"Real Sociedad",age:32,caps:80,goals:0},
+    {n:2,name:"N. Atkinson",full:"Nathaniel Atkinson",pos:"RB",club:"Hearts",age:24,caps:18,goals:0},
+    {n:5,name:"H. Souttar",full:"Harry Souttar",pos:"CB",club:"Leicester City",age:25,caps:34,goals:5},
+    {n:4,name:"K. Rowles",full:"Kye Rowles",pos:"CB",club:"Hearts",age:26,caps:22,goals:1},
+    {n:3,name:"A. Behich",full:"Aziz Behich",pos:"LB",club:"Dundee United",age:32,caps:50,goals:1},
+    {n:8,name:"J. Irvine",full:"Jackson Irvine",pos:"MF",club:"FC St. Pauli",age:31,caps:64,goals:11},
+    {n:6,name:"R. McGree",full:"Riley McGree",pos:"MF",club:"Middlesbrough",age:25,caps:36,goals:10},
+    {n:10,name:"A. Hrustic",full:"Ajdin Hrustic",pos:"MF",club:"Hellas Verona",age:27,caps:34,goals:7},
+    {n:7,name:"M. Leckie",full:"Matthew Leckie",pos:"FW",club:"Melbourne City",age:33,caps:90,goals:16},
+    {n:9,name:"M. Duke",full:"Mitchell Duke",pos:"FW",club:"Fagiano Okayama",age:33,caps:42,goals:13},
+    {n:11,name:"C. Goodwin",full:"Craig Goodwin",pos:"FW",club:"Adelaide United",age:32,caps:36,goals:8}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"Los Socceroos sorprendieron al mundo llegando a cuartos en Qatar 2022. Bajo Popovic buscan repetir la hazaña."
+},
+"España":{flag:"🇪🇸",group:"H",coach:"Luis de la Fuente",coachAge:63,formation:"4-3-3",ranking:3,confederation:"UEFA",
+  players:[
+    {n:1,name:"D. Raya",full:"David Raya",pos:"GK",club:"Arsenal",age:29,caps:14,goals:0},
+    {n:2,name:"D. Carvajal",full:"Dani Carvajal",pos:"RB",club:"Real Madrid",age:32,caps:72,goals:3},
+    {n:3,name:"R. Le Normand",full:"Robin Le Normand",pos:"CB",club:"Atlético Madrid",age:27,caps:16,goals:1},
+    {n:24,name:"A. Laporte",full:"Aymeric Laporte",pos:"CB",club:"Al-Nassr",age:30,caps:48,goals:3},
+    {n:23,name:"G. Baldé",full:"Grimaldo Baldé",pos:"LB",club:"Bayer Leverkusen",age:29,caps:18,goals:2},
+    {n:16,name:"Rodri",full:"Rodrigo Hernández (Rodri)",pos:"MF",club:"Manchester City",age:28,caps:54,goals:7},
+    {n:5,name:"R. Merino",full:"Mikel Merino",pos:"MF",club:"Arsenal",age:28,caps:30,goals:6},
+    {n:26,name:"M. Zubimendi",full:"Martín Zubimendi",pos:"MF",club:"Real Sociedad",age:25,caps:20,goals:1},
+    {n:7,name:"A. Yamal",full:"Lamine Yamal",pos:"FW",club:"Barcelona",age:17,caps:24,goals:7},
+    {n:19,name:"N. Williams",full:"Nico Williams",pos:"FW",club:"Athletic Club",age:22,caps:18,goals:4},
+    {n:11,name:"F. Torres",full:"Ferran Torres",pos:"FW",club:"Barcelona",age:24,caps:48,goals:17}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"Campeona de la Euro 2024 con una generación brillante. España juega el fútbol más vistoso del mundo bajo De la Fuente."
+},
+"Senegal":{flag:"🇸🇳",group:"I",coach:"Aliou Cissé",coachAge:48,formation:"4-3-3",ranking:19,confederation:"CAF",
+  players:[
+    {n:1,name:"E. Mendy",full:"Édouard Mendy",pos:"GK",club:"Al Ahli",age:32,caps:44,goals:0},
+    {n:2,name:"B. Sarr",full:"Bouna Sarr",pos:"RB",club:"Bayern München",age:32,caps:28,goals:0},
+    {n:5,name:"K. Koulibaly",full:"Kalidou Koulibaly",pos:"CB",club:"Al-Hilal",age:32,caps:76,goals:5},
+    {n:4,name:"A. Nianzou",full:"Abdou Diallo",pos:"CB",club:"Al-Arabi",age:27,caps:28,goals:1},
+    {n:3,name:"F. Ciss",full:"Fodé Ballo-Touré",pos:"LB",club:"AC Milan",age:27,caps:26,goals:0},
+    {n:8,name:"I. Gueye",full:"Idrissa Gueye",pos:"MF",club:"Everton",age:34,caps:86,goals:4},
+    {n:14,name:"N. Mendy",full:"Nampalys Mendy",pos:"MF",club:"Leicester City",age:32,caps:44,goals:1},
+    {n:10,name:"S. Mané",full:"Sadio Mané",pos:"FW",club:"Al-Nassr",age:32,caps:102,goals:36},
+    {n:11,name:"I. Sarr",full:"Ismaïla Sarr",pos:"FW",club:"Crystal Palace",age:26,caps:58,goals:14},
+    {n:9,name:"B. Dia",full:"Boulaye Dia",pos:"FW",club:"Lazio",age:27,caps:32,goals:12},
+    {n:7,name:"A. Diatta",full:"Krepin Diatta",pos:"FW",club:"Monaco",age:25,caps:36,goals:8}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"Campeona de África en 2022. Con Koulibaly y Mané como líderes, Senegal es la selección africana más fuerte."
+},
+"Países Bajos":{flag:"🇳🇱",group:"F",coach:"Ronald Koeman",coachAge:61,formation:"4-3-3",ranking:8,confederation:"UEFA",
+  players:[
+    {n:1,name:"B. Flekken",full:"Mark Flekken",pos:"GK",club:"Brentford",age:31,caps:18,goals:0},
+    {n:2,name:"D. Dumfries",full:"Denzel Dumfries",pos:"RB",club:"Internazionale",age:28,caps:52,goals:8},
+    {n:4,name:"V. van Dijk",full:"Virgil van Dijk",pos:"CB",club:"Liverpool",age:32,caps:70,goals:6},
+    {n:5,name:"S. de Vrij",full:"Stefan de Vrij",pos:"CB",club:"Internazionale",age:32,caps:60,goals:5},
+    {n:3,name:"N. Ake",full:"Nathan Aké",pos:"LB",club:"Manchester City",age:29,caps:42,goals:2},
+    {n:6,name:"F. de Jong",full:"Frenkie de Jong",pos:"MF",club:"Barcelona",age:27,caps:56,goals:7},
+    {n:8,name:"T. Reijnders",full:"Tijjani Reijnders",pos:"MF",club:"AC Milan",age:26,caps:24,goals:5},
+    {n:14,name:"G. Simons",full:"Xavi Simons",pos:"MF",club:"Leipzig",age:21,caps:20,goals:4},
+    {n:10,name:"M. Depay",full:"Memphis Depay",pos:"FW",club:"Atlético Madrid",age:30,caps:102,goals:46},
+    {n:11,name:"C. Gakpo",full:"Cody Gakpo",pos:"FW",club:"Liverpool",age:25,caps:38,goals:16},
+    {n:9,name:"W. Weghorst",full:"Wout Weghorst",pos:"FW",club:"Hoffenheim",age:31,caps:48,goals:16}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"Subcampeona del mundo en 1974 y 1978. Los Países Bajos llegan con una plantilla equilibrada bajo Koeman."
+},
+"Irán":{flag:"🇮🇷",group:"G",coach:"Amir Ghalenoei",coachAge:53,formation:"4-3-3",ranking:22,confederation:"AFC",
+  players:[
+    {n:1,name:"A. Beiranvand",full:"Alireza Beiranvand",pos:"GK",club:"Antwerp",age:31,caps:72,goals:0},
+    {n:2,name:"S. Moharrami",full:"Sadegh Moharrami",pos:"RB",club:"Dinamo Zagreb",age:28,caps:32,goals:0},
+    {n:5,name:"M. Hosseini",full:"Majid Hosseini",pos:"CB",club:"Kasımpaşa",age:25,caps:18,goals:0},
+    {n:3,name:"R. Rezaeian",full:"Ramin Rezaeian",pos:"CB",club:"Shabab Al-Ahli",age:34,caps:80,goals:2},
+    {n:22,name:"A. Cheshmi",full:"Abolfazl Cheshmi",pos:"LB",club:"Esteghlal",age:29,caps:20,goals:2},
+    {n:8,name:"S. Ezatolahi",full:"Saeid Ezatolahi",pos:"MF",club:"Vejle",age:28,caps:64,goals:3},
+    {n:6,name:"A. Noorollahi",full:"Ahmad Noorollahi",pos:"MF",club:"Al-Ettifaq",age:28,caps:42,goals:5},
+    {n:10,name:"A. Jahanbakhsh",full:"Alireza Jahanbakhsh",pos:"MF",club:"Feyenoord",age:30,caps:90,goals:18},
+    {n:11,name:"M. Taremi",full:"Mehdi Taremi",pos:"FW",club:"Internazionale",age:32,caps:92,goals:46},
+    {n:9,name:"S. Azmoun",full:"Sardar Azmoun",pos:"FW",club:"Bayer Leverkusen",age:29,caps:78,goals:48},
+    {n:7,name:"A. Ansarifard",full:"Karim Ansarifard",pos:"FW",club:"Panionios",age:33,caps:94,goals:32}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"Irán llega con un ataque letal encabezado por Taremi y Azmoun. Los Team Melli buscan superar la fase de grupos."
+},
+"Inglaterra":{flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",group:"L",coach:"Gareth Southgate",coachAge:53,formation:"4-3-3",ranking:5,confederation:"UEFA",
+  players:[
+    {n:1,name:"J. Pickford",full:"Jordan Pickford",pos:"GK",club:"Everton",age:30,caps:68,goals:0},
+    {n:2,name:"K. Walker",full:"Kyle Walker",pos:"RB",club:"Manchester City",age:33,caps:86,goals:1},
+    {n:5,name:"J. Stones",full:"John Stones",pos:"CB",club:"Manchester City",age:30,caps:77,goals:3},
+    {n:6,name:"M. Guehi",full:"Marc Guehi",pos:"CB",club:"Crystal Palace",age:23,caps:22,goals:1},
+    {n:3,name:"L. Shaw",full:"Luke Shaw",pos:"LB",club:"Manchester United",age:28,caps:32,goals:1},
+    {n:4,name:"D. Rice",full:"Declan Rice",pos:"MF",club:"Arsenal",age:25,caps:60,goals:5},
+    {n:8,name:"J. Bellingham",full:"Jude Bellingham",pos:"MF",club:"Real Madrid",age:20,caps:38,goals:14},
+    {n:22,name:"T. Alexander-Arnold",full:"Trent Alexander-Arnold",pos:"MF",club:"Real Madrid",age:25,caps:36,goals:3},
+    {n:10,name:"B. Saka",full:"Bukayo Saka",pos:"FW",club:"Arsenal",age:22,caps:48,goals:16},
+    {n:9,name:"H. Kane",full:"Harry Kane",pos:"FW",club:"Bayern München",age:30,caps:98,goals:68},
+    {n:20,name:"C. Palmer",full:"Cole Palmer",pos:"FW",club:"Chelsea",age:22,caps:18,goals:7}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"Finalista en Euro 2021 y 2024. Con Kane, Bellingham y Saka, Inglaterra tiene su mejor generación desde 1966."
+},
+"Camerún":{flag:"🇨🇲",group:"D_OLD",coach:"Marc Brys",coachAge:58,formation:"4-3-3",ranking:41,confederation:"CAF",
+  players:[
+    {n:1,name:"A. Onana",full:"André Onana",pos:"GK",club:"Manchester United",age:28,caps:42,goals:0},
+    {n:2,name:"H. Tchatchoua",full:"Henrique Tchatchoua",pos:"RB",club:"Hellas Verona",age:25,caps:20,goals:0},
+    {n:5,name:"N. Nkoulou",full:"Nicolas Nkoulou",pos:"CB",club:"Trabzonspor",age:34,caps:86,goals:4},
+    {n:4,name:"M. Ngadeu",full:"Michael Ngadeu",pos:"CB",club:"Gent",age:33,caps:52,goals:3},
+    {n:3,name:"C. Tolo",full:"Collins Fai",pos:"LB",club:"Al-Gharafa",age:32,caps:62,goals:2},
+    {n:8,name:"A. Zambo",full:"André-Frank Zambo Anguissa",pos:"MF",club:"Napoli",age:28,caps:64,goals:6},
+    {n:14,name:"P. Kunde",full:"Pierre Kunde",pos:"MF",club:"Málaga",age:28,caps:36,goals:2},
+    {n:10,name:"G. Ganago",full:"Ignatius Ganago",pos:"MF",club:"RC Lens",age:25,caps:28,goals:6},
+    {n:7,name:"B. Mbeumo",full:"Bryan Mbeumo",pos:"FW",club:"Brentford",age:24,caps:38,goals:14},
+    {n:9,name:"E. Choupo-Moting",full:"Eric Choupo-Moting",pos:"FW",club:"Eintracht Frankfurt",age:35,caps:104,goals:43},
+    {n:11,name:"C. Bassogog",full:"Christian Bassogog",pos:"FW",club:"Al-Ahli",age:28,caps:48,goals:12}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"Los Leones Indomables tienen en Onana y Mbeumo sus referencias. Camerún siempre da sorpresas en los mundiales."
+},
+"Serbia":{flag:"🇷🇸",group:"D_OLD",coach:"Dragan Stojković",coachAge:56,formation:"3-4-2-1",ranking:33,confederation:"UEFA",
+  players:[
+    {n:1,name:"V. Rajković",full:"Vanja Rajković",pos:"GK",club:"Mallorca",age:30,caps:22,goals:0},
+    {n:5,name:"M. Veljković",full:"Miloš Veljković",pos:"CB",club:"Werder Bremen",age:29,caps:36,goals:2},
+    {n:4,name:"N. Milenkovic",full:"Nikola Milenković",pos:"CB",club:"Nottingham Forest",age:26,caps:52,goals:5},
+    {n:3,name:"S. Pavlović",full:"Strahinja Pavlović",pos:"CB",club:"Monaco",age:23,caps:20,goals:1},
+    {n:2,name:"A. Živković",full:"Andrija Živković",pos:"WB",club:"PAOK",age:27,caps:38,goals:7},
+    {n:8,name:"S. Gudelj",full:"Nemanja Gudelj",pos:"MF",club:"Sevilla",age:32,caps:40,goals:3},
+    {n:6,name:"F. Kostić",full:"Filip Kostić",pos:"WB",club:"Juventus",age:31,caps:64,goals:14},
+    {n:14,name:"S. Milinkovic-S.",full:"Sergej Milinković-Savić",pos:"MF",club:"Al-Hilal",age:29,caps:64,goals:16},
+    {n:10,name:"D. Tadić",full:"Dušan Tadić",pos:"MF",club:"Fenerbahçe",age:35,caps:110,goals:38},
+    {n:9,name:"D. Vlahović",full:"Dušan Vlahović",pos:"FW",club:"Juventus",age:24,caps:40,goals:21},
+    {n:7,name:"L. Jović",full:"Luka Jović",pos:"FW",club:"Fiorentina",age:26,caps:34,goals:12}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"Serbia cuenta con uno de los ataques más potentes del torneo con Vlahović y Milinković-Savić como referentes."
+},
+"Colombia":{flag:"🇨🇴",group:"K",coach:"Néstor Lorenzo",coachAge:57,formation:"4-3-3",ranking:10,confederation:"CONMEBOL",
+  players:[
+    {n:1,name:"D. Ospina",full:"David Ospina",pos:"GK",club:"Al-Qadsiah",age:35,caps:114,goals:0},
+    {n:2,name:"S. Muñoz",full:"Santiago Muñoz",pos:"RB",club:"Newcastle United",age:22,caps:14,goals:1},
+    {n:4,name:"D. Sánchez",full:"Davinson Sánchez",pos:"CB",club:"Galatasaray",age:28,caps:64,goals:2},
+    {n:5,name:"Y. Mina",full:"Yerry Mina",pos:"CB",club:"Valencia",age:29,caps:60,goals:9},
+    {n:3,name:"J. Mojica",full:"Johan Mojica",pos:"LB",club:"Girona",age:32,caps:30,goals:1},
+    {n:8,name:"M. Arias",full:"Matheus Uribe",pos:"MF",club:"Porto",age:32,caps:56,goals:8},
+    {n:16,name:"J. Lerma",full:"Jefferson Lerma",pos:"MF",club:"Crystal Palace",age:29,caps:62,goals:4},
+    {n:10,name:"J. Cuadrado",full:"Juan Cuadrado",pos:"MF",club:"Internazionale",age:35,caps:106,goals:22},
+    {n:7,name:"L. Díaz",full:"Luis Díaz",pos:"FW",club:"Liverpool",age:27,caps:52,goals:16},
+    {n:9,name:"R. Falcao",full:"Radamel Falcao",pos:"FW",club:"Rayo Vallecano",age:38,caps:109,goals:36},
+    {n:11,name:"J. Borre",full:"Rafael Santos Borré",pos:"FW",club:"Eintracht Frankfurt",age:28,caps:38,goals:12}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"Finalista de la Copa América 2024 con juego brillante. Luis Díaz es la estrella de una Colombia que llega con mucha confianza."
+},
+"Brasil":{flag:"🇧🇷",group:"C",coach:"Dorival Júnior",coachAge:62,formation:"4-2-3-1",ranking:4,confederation:"CONMEBOL",
+  players:[
+    {n:1,name:"Alisson",full:"Alisson Becker",pos:"GK",club:"Liverpool",age:31,caps:72,goals:1},
+    {n:2,name:"Danilo",full:"Danilo Luiz da Silva",pos:"RB",club:"Fluminense",age:33,caps:90,goals:7},
+    {n:4,name:"E. Militão",full:"Éder Militão",pos:"CB",club:"Real Madrid",age:26,caps:48,goals:3},
+    {n:3,name:"Marquinhos",full:"Marquinhos",pos:"CB",club:"Paris Saint-Germain",age:30,caps:84,goals:12},
+    {n:6,name:"A. Telles",full:"Alex Telles",pos:"LB",club:"Sevilla",age:31,caps:30,goals:3},
+    {n:5,name:"Casemiro",full:"Carlos Henrique Casemiro",pos:"MF",club:"Manchester United",age:32,caps:88,goals:9},
+    {n:8,name:"B. Guimarães",full:"Bruno Guimarães",pos:"MF",club:"Newcastle United",age:26,caps:40,goals:6},
+    {n:10,name:"Neymar Jr.",full:"Neymar da Silva Santos Júnior",pos:"FW",club:"Al-Hilal",age:32,caps:128,goals:79},
+    {n:11,name:"Raphinha",full:"Raphael Dias Belloli (Raphinha)",pos:"FW",club:"Barcelona",age:27,caps:48,goals:18},
+    {n:9,name:"Rodrygo",full:"Rodrygo Goes",pos:"FW",club:"Real Madrid",age:23,caps:36,goals:12},
+    {n:7,name:"Vinícius Jr.",full:"Vinícius Júnior",pos:"FW",club:"Real Madrid",age:24,caps:42,goals:16}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"Pentacampeona mundial. Con Vinícius, Rodrygo y Neymar, Brasil tiene el ataque más desequilibrante del torneo."
+},
+"Marruecos":{flag:"🇲🇦",group:"C",coach:"Walid Regragui",coachAge:48,formation:"4-3-3",ranking:12,confederation:"CAF",
+  players:[
+    {n:1,name:"Y. Bono",full:"Yassine Bounou (Bono)",pos:"GK",club:"Al-Hilal",age:32,caps:68,goals:0},
+    {n:2,name:"A. Hakimi",full:"Achraf Hakimi",pos:"RB",club:"Paris Saint-Germain",age:25,caps:70,goals:14},
+    {n:5,name:"N. Aguerd",full:"Nayef Aguerd",pos:"CB",club:"West Ham United",age:28,caps:48,goals:2},
+    {n:6,name:"R. Saïss",full:"Romain Saïss",pos:"CB",club:"Besiktas",age:33,caps:76,goals:7},
+    {n:3,name:"N. Mazraoui",full:"Noussair Mazraoui",pos:"LB",club:"Manchester United",age:26,caps:42,goals:3},
+    {n:8,name:"S. Amrabat",full:"Sofyan Amrabat",pos:"MF",club:"Fiorentina",age:27,caps:56,goals:1},
+    {n:14,name:"A. Ounahi",full:"Azzedine Ounahi",pos:"MF",club:"Marseille",age:24,caps:28,goals:3},
+    {n:10,name:"H. Ziyech",full:"Hakim Ziyech",pos:"MF",club:"Galatasaray",age:31,caps:68,goals:22},
+    {n:7,name:"S. Boufal",full:"Sofiane Boufal",pos:"FW",club:"Angers",age:30,caps:58,goals:10},
+    {n:9,name:"Y. En-Nesyri",full:"Youssef En-Nesyri",pos:"FW",club:"Fenerbahçe",age:27,caps:62,goals:25},
+    {n:11,name:"A. Sabiri",full:"Abdelhamid Sabiri",pos:"FW",club:"Fiorentina",age:27,caps:24,goals:5}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"Semifinalista histórica en Qatar 2022. Marruecos, con Hakimi y Amrabat, es la gran potencia del fútbol africano actual."
+},
+"Croacia":{flag:"🇭🇷",group:"L",coach:"Zlatko Dalić",coachAge:57,formation:"4-3-3",ranking:9,confederation:"UEFA",
+  players:[
+    {n:1,name:"D. Livaković",full:"Dominik Livaković",pos:"GK",club:"Fenerbahçe",age:28,caps:48,goals:0},
+    {n:2,name:"J. Stanišić",full:"Josip Stanišić",pos:"RB",club:"Bayer Leverkusen",age:24,caps:18,goals:0},
+    {n:5,name:"D. Vida",full:"Domagoj Vida",pos:"CB",club:"AEK Athens",age:34,caps:102,goals:4},
+    {n:4,name:"J. Gvardiol",full:"Joško Gvardiol",pos:"CB",club:"Manchester City",age:22,caps:38,goals:3},
+    {n:3,name:"B. Sosa",full:"Borna Sosa",pos:"LB",club:"Stuttgart",age:26,caps:26,goals:3},
+    {n:11,name:"M. Brozović",full:"Marcelo Brozović",pos:"MF",club:"Al-Nassr",age:31,caps:90,goals:11},
+    {n:8,name:"M. Kovačić",full:"Mateo Kovačić",pos:"MF",club:"Manchester City",age:29,caps:84,goals:7},
+    {n:10,name:"L. Modrić",full:"Luka Modrić",pos:"MF",club:"Real Madrid",age:38,caps:172,goals:24},
+    {n:7,name:"I. Perišić",full:"Ivan Perišić",pos:"FW",club:"Hajduk Split",age:35,caps:126,goals:34},
+    {n:9,name:"A. Kramarić",full:"Andrej Kramarić",pos:"FW",club:"Hoffenheim",age:32,caps:78,goals:36},
+    {n:19,name:"B. Pašalić",full:"Mario Pašalić",pos:"FW",club:"Atalanta",age:29,caps:50,goals:18}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"Finalista en 2018, tercero en 2022. Con Modrić como alma del equipo, Croacia siempre rinde más de lo esperado."
+},
+"Bélgica":{flag:"🇧🇪",group:"G",coach:"Domenico Tedesco",coachAge:38,formation:"3-4-3",ranking:14,confederation:"UEFA",
+  players:[
+    {n:1,name:"K. Casteels",full:"Koen Casteels",pos:"GK",club:"Al-Qadsiah",age:32,caps:28,goals:0},
+    {n:5,name:"J. Vertonghen",full:"Jan Vertonghen",pos:"CB",club:"Anderlecht",age:37,caps:152,goals:10},
+    {n:4,name:"W. Faes",full:"Wout Faes",pos:"CB",club:"Leicester City",age:26,caps:22,goals:0},
+    {n:3,name:"T. Castagne",full:"Timothy Castagne",pos:"WB",club:"Fulham",age:28,caps:42,goals:2},
+    {n:2,name:"T. Meunier",full:"Thomas Meunier",pos:"WB",club:"Club Brugge",age:32,caps:66,goals:9},
+    {n:8,name:"Y. Tielemans",full:"Youri Tielemans",pos:"MF",club:"Aston Villa",age:27,caps:68,goals:18},
+    {n:6,name:"A. Witsel",full:"Axel Witsel",pos:"MF",club:"Atlético Madrid",age:35,caps:134,goals:13},
+    {n:7,name:"K. De Bruyne",full:"Kevin De Bruyne",pos:"MF",club:"Manchester City",age:33,caps:102,goals:26},
+    {n:11,name:"L. Trossard",full:"Leandro Trossard",pos:"FW",club:"Arsenal",age:29,caps:38,goals:11},
+    {n:9,name:"R. Lukaku",full:"Romelu Lukaku",pos:"FW",club:"Napoli",age:31,caps:114,goals:84},
+    {n:10,name:"J. Doku",full:"Jérémy Doku",pos:"FW",club:"Manchester City",age:22,caps:28,goals:5}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"La Generación de Oro belga cierra su ciclo. De Bruyne y Lukaku lideran un equipo con el objetivo de ganar algo antes de que se acabe la era."
+},
+"Alemania":{flag:"🇩🇪",group:"E",coach:"Julian Nagelsmann",coachAge:36,formation:"4-2-3-1",ranking:6,confederation:"UEFA",
+  players:[
+    {n:1,name:"M. Neuer",full:"Manuel Neuer",pos:"GK",club:"Bayern München",age:38,caps:124,goals:1},
+    {n:2,name:"J. Kimmich",full:"Joshua Kimmich",pos:"RB",club:"Bayern München",age:29,caps:80,goals:8},
+    {n:4,name:"J. Tah",full:"Jonathan Tah",pos:"CB",club:"Bayer Leverkusen",age:28,caps:36,goals:1},
+    {n:5,name:"A. Rüdiger",full:"Antonio Rüdiger",pos:"CB",club:"Real Madrid",age:31,caps:72,goals:5},
+    {n:3,name:"D. Raum",full:"David Raum",pos:"LB",club:"Leipzig",age:26,caps:28,goals:3},
+    {n:6,name:"R. Andrich",full:"Robert Andrich",pos:"MF",club:"Bayer Leverkusen",age:29,caps:18,goals:3},
+    {n:8,name:"T. Kroos",full:"Toni Kroos",pos:"MF",club:"Real Madrid",age:34,caps:114,goals:17},
+    {n:10,name:"J. Musiala",full:"Jamal Musiala",pos:"MF",club:"Bayern München",age:21,caps:38,goals:12},
+    {n:7,name:"K. Havertz",full:"Kai Havertz",pos:"FW",club:"Arsenal",age:25,caps:52,goals:21},
+    {n:9,name:"N. Füllkrug",full:"Niclas Füllkrug",pos:"FW",club:"West Ham United",age:31,caps:24,goals:14},
+    {n:11,name:"F. Wirtz",full:"Florian Wirtz",pos:"FW",club:"Bayer Leverkusen",age:21,caps:26,goals:9}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"Cuatro veces campeón mundial. Con Musiala y Wirtz como joyas jóvenes y Kroos como cerebro, Alemania busca su quinta estrella."
+},
+"Japón":{flag:"🇯🇵",group:"F",coach:"Hajime Moriyasu",coachAge:55,formation:"4-3-3",ranking:18,confederation:"AFC",
+  players:[
+    {n:1,name:"S. Gonda",full:"Shuichi Gonda",pos:"GK",club:"Shimizu S-Pulse",age:34,caps:58,goals:0},
+    {n:2,name:"H. Sakai",full:"Hiroki Sakai",pos:"RB",club:"Urawa Reds",age:33,caps:72,goals:3},
+    {n:5,name:"K. Itakura",full:"Kō Itakura",pos:"CB",club:"Borussia M'gladbach",age:27,caps:28,goals:1},
+    {n:3,name:"S. Yoshida",full:"Maya Yoshida",pos:"CB",club:"Urawa Reds",age:35,caps:128,goals:9},
+    {n:22,name:"Y. Nagatomo",full:"Yuto Nagatomo",pos:"LB",club:"Tokyo FC",age:37,caps:142,goals:4},
+    {n:8,name:"W. Endo",full:"Wataru Endo",pos:"MF",club:"Liverpool",age:31,caps:68,goals:4},
+    {n:6,name:"K. Mitoma",full:"Kaoru Mitoma",pos:"MF",club:"Brighton",age:27,caps:28,goals:8},
+    {n:10,name:"S. Kubo",full:"Takefusa Kubo",pos:"MF",club:"Real Sociedad",age:22,caps:30,goals:7},
+    {n:9,name:"A. Ueda",full:"Ayase Ueda",pos:"FW",club:"Feyenoord",age:25,caps:18,goals:9},
+    {n:7,name:"H. Maeda",full:"Daizen Maeda",pos:"FW",club:"Celtic",age:26,caps:24,goals:9},
+    {n:11,name:"R. Doan",full:"Ritsu Doan",pos:"FW",club:"Freiburg",age:26,caps:46,goals:18}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"Japón eliminó a Alemania y España en Qatar 2022. Con una nueva generación talentosa en Europa, los Samurai Blue son una amenaza."
+},
+"Costa Rica":{flag:"🇨🇷",group:"F_OLD",coach:"Gustavo Alfaro",coachAge:62,formation:"5-4-1",ranking:50,confederation:"CONCACAF",
+  players:[
+    {n:1,name:"K. Navas",full:"Keylor Navas",pos:"GK",club:"Newell's Old Boys",age:37,caps:104,goals:0},
+    {n:4,name:"B. Oviedo",full:"Bryan Oviedo",pos:"LB",club:"Real Salt Lake",age:34,caps:84,goals:6},
+    {n:3,name:"O. Duarte",full:"Óscar Duarte",pos:"CB",club:"Almería",age:34,caps:72,goals:5},
+    {n:5,name:"F. Calvo",full:"Francisco Calvo",pos:"CB",club:"New England Revs",age:32,caps:60,goals:4},
+    {n:2,name:"I. Vargas",full:"Ian Lawrence",pos:"RB",club:"Deportivo Saprissa",age:26,caps:16,goals:0},
+    {n:8,name:"Y. Tejeda",full:"Yeltsin Tejeda",pos:"MF",club:"Rayados Monterrey",age:31,caps:90,goals:5},
+    {n:6,name:"C. Borges",full:"Celso Borges",pos:"MF",club:"Deportivo La Coruña",age:35,caps:110,goals:12},
+    {n:10,name:"B. Ruiz",full:"Bryan Ruiz",pos:"MF",club:"Deportivo Saprissa",age:38,caps:142,goals:26},
+    {n:11,name:"J. Venegas",full:"Johan Venegas",pos:"FW",club:"Deportivo Saprissa",age:34,caps:52,goals:14},
+    {n:9,name:"J. Campbell",full:"Joel Campbell",pos:"FW",club:"León",age:32,caps:112,goals:26},
+    {n:7,name:"A. Contreras",full:"Álvaro Zamora",pos:"FW",club:"FC Dallas",age:25,caps:14,goals:3}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"Costa Rica es un clásico sorpresa mundialista. Keylor Navas sigue siendo un portero de élite y el capitán espiritual del equipo."
+},
+"Ecuador":{flag:"🇪🇨",group:"E",coach:"Sebastián Beccacece",coachAge:43,formation:"4-4-2",ranking:32,confederation:"CONMEBOL",
+  players:[
+    {n:1,name:"H. Galíndez",full:"Hernán Galíndez",pos:"GK",club:"Aucas",age:35,caps:36,goals:0},
+    {n:2,name:"A. Preciado",full:"Angelo Preciado",pos:"RB",club:"Genk",age:26,caps:42,goals:3},
+    {n:3,name:"P. Hincapié",full:"Piero Hincapié",pos:"LB",club:"Bayer Leverkusen",age:22,caps:28,goals:1},
+    {n:4,name:"F. Torres",full:"Fernando Torres (ECU)",pos:"CB",club:"Barcelona SC",age:25,caps:20,goals:1},
+    {n:6,name:"W. Palacios",full:"Williams Palacios",pos:"CB",club:"Tottenham Hotspur",age:25,caps:18,goals:0},
+    {n:8,name:"J. Cifuentes",full:"José Cifuentes",pos:"MF",club:"LAFC",age:25,caps:32,goals:4},
+    {n:14,name:"M. Caicedo",full:"Moisés Caicedo",pos:"MF",club:"Chelsea",age:23,caps:44,goals:4},
+    {n:18,name:"A. Franco",full:"Ángel Mena",pos:"MF",club:"León",age:36,caps:86,goals:24},
+    {n:7,name:"G. Adé",full:"Gonzalo Plata",pos:"FW",club:"Al-Qadsiah",age:23,caps:30,goals:7},
+    {n:10,name:"E. Valencia",full:"Enner Valencia",pos:"FW",club:"Fenerbahçe",age:34,caps:102,goals:40},
+    {n:9,name:"J. Plata",full:"Jordy Caicedo",pos:"FW",club:"Emelec",age:28,caps:22,goals:8}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"La Tri llega al Mundial con Moisés Caicedo como figura mundial y Beccacece imprimiendo un fútbol intenso y vertical."
+},
+"Portugal":{flag:"🇵🇹",group:"K",coach:"Roberto Martínez",coachAge:50,formation:"4-3-3",ranking:7,confederation:"UEFA",
+  players:[
+    {n:1,name:"R. Patrício",full:"Rui Patrício",pos:"GK",club:"AS Roma",age:36,caps:112,goals:0},
+    {n:2,name:"J. Cancelo",full:"João Cancelo",pos:"RB",club:"Barcelona",age:30,caps:60,goals:5},
+    {n:4,name:"R. Dias",full:"Rúben Dias",pos:"CB",club:"Manchester City",age:27,caps:56,goals:3},
+    {n:3,name:"P. Magalhães",full:"Pepe",pos:"CB",club:"Porto",age:41,caps:142,goals:9},
+    {n:5,name:"N. Mendes",full:"Nuno Mendes",pos:"LB",club:"Paris Saint-Germain",age:22,caps:26,goals:1},
+    {n:8,name:"B. Fernandes",full:"Bruno Fernandes",pos:"MF",club:"Manchester United",age:29,caps:72,goals:22},
+    {n:6,name:"R. Neves",full:"Rúben Neves",pos:"MF",club:"Al-Hilal",age:27,caps:52,goals:6},
+    {n:16,name:"M. Vitinha",full:"Vitinha",pos:"MF",club:"Paris Saint-Germain",age:24,caps:32,goals:4},
+    {n:10,name:"B. Silva",full:"Bernardo Silva",pos:"FW",club:"Manchester City",age:29,caps:82,goals:23},
+    {n:7,name:"C. Ronaldo",full:"Cristiano Ronaldo",pos:"FW",club:"Al-Nassr",age:40,caps:211,goals:130},
+    {n:17,name:"R. Leão",full:"Rafael Leão",pos:"FW",club:"AC Milan",age:25,caps:34,goals:8}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"Portugal tiene en Ronaldo su eterno capitán y en Bernardo Silva y Rafael Leão su presente y futuro. Una generación que busca el primer título."
+},
+"Ghana":{flag:"🇬🇭",group:"L",coach:"Otto Addo",coachAge:47,formation:"4-2-3-1",ranking:61,confederation:"CAF",
+  players:[
+    {n:1,name:"J. Ati-Zigi",full:"Joe Wollacott",pos:"GK",club:"Charlton Athletic",age:26,caps:14,goals:0},
+    {n:2,name:"A. Lamptey",full:"Tariq Lamptey",pos:"RB",club:"Brighton",age:23,caps:18,goals:1},
+    {n:5,name:"D. Amartey",full:"Daniel Amartey",pos:"CB",club:"Leicester City",age:29,caps:48,goals:1},
+    {n:3,name:"B. Mensah",full:"Alexander Djiku",pos:"CB",club:"Fenerbahçe",age:29,caps:36,goals:0},
+    {n:22,name:"R. Acheampong",full:"Baba Rahman",pos:"LB",club:"Reading",age:29,caps:42,goals:1},
+    {n:8,name:"T. Partey",full:"Thomas Partey",pos:"MF",club:"Arsenal",age:30,caps:58,goals:13},
+    {n:6,name:"I. Sulemana",full:"Iddrisu Baba",pos:"MF",club:"Mallorca",age:27,caps:28,goals:0},
+    {n:10,name:"J. Ayew",full:"Jordan Ayew",pos:"MF",club:"Crystal Palace",age:32,caps:98,goals:22},
+    {n:7,name:"C. Atsu",full:"Antoine Semenyo",pos:"FW",club:"AFC Bournemouth",age:24,caps:14,goals:3},
+    {n:9,name:"I. Ayew",full:"André Ayew",pos:"FW",club:"Le Havre",age:34,caps:120,goals:24},
+    {n:11,name:"A. Kudus",full:"Mohammed Kudus",pos:"FW",club:"West Ham United",age:23,caps:28,goals:10}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"Las Estrellas Negras tienen en Partey y Kudus sus motores. Ghana busca revivir el espíritu de su histórica cuarta posición en 2010."
+},
+"Uruguay":{flag:"🇺🇾",group:"H",coach:"Marcelo Bielsa",coachAge:68,formation:"4-3-3",ranking:18,confederation:"CONMEBOL",
+  players:[
+    {n:1,name:"S. Rochet",full:"Sergio Rochet",pos:"GK",club:"Internazionale",age:30,caps:28,goals:0},
+    {n:2,name:"J. Cáceres",full:"Jonathan Cáceres",pos:"RB",club:"Peñarol",age:26,caps:18,goals:0},
+    {n:4,name:"J. Giménez",full:"José María Giménez",pos:"CB",club:"Atlético Madrid",age:29,caps:68,goals:5},
+    {n:6,name:"R. Araujo",full:"Ronald Araújo",pos:"CB",club:"Barcelona",age:25,caps:32,goals:3},
+    {n:3,name:"M. Olivera",full:"Mathías Olivera",pos:"LB",club:"Napoli",age:26,caps:28,goals:2},
+    {n:15,name:"F. Valverde",full:"Federico Valverde",pos:"MF",club:"Real Madrid",age:25,caps:58,goals:11},
+    {n:14,name:"M. Ugarte",full:"Manuel Ugarte",pos:"MF",club:"Manchester United",age:23,caps:24,goals:0},
+    {n:8,name:"N. De la Cruz",full:"Nicolás De La Cruz",pos:"MF",club:"River Plate",age:27,caps:28,goals:6},
+    {n:7,name:"M. Pellistri",full:"Facundo Pellistri",pos:"FW",club:"Manchester United",age:22,caps:20,goals:3},
+    {n:9,name:"L. Suárez",full:"Luis Suárez",pos:"FW",club:"Peñarol",age:37,caps:142,goals:69},
+    {n:11,name:"D. Núñez",full:"Darwin Núñez",pos:"FW",club:"Liverpool",age:25,caps:38,goals:18}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"Con Bielsa, Valverde y Núñez, Uruguay es impredecible y peligroso. Los charrúas siempre rinden al máximo en los mundiales."
+},
+"Corea del Sur":{flag:"🇰🇷",group:"A",coach:"Jürgen Klinsmann",coachAge:59,formation:"4-3-3",ranking:25,confederation:"AFC",
+  players:[
+    {n:1,name:"Kim Seung-gyu",full:"Kim Seung-gyu",pos:"GK",club:"Vissel Kobe",age:33,caps:62,goals:0},
+    {n:2,name:"Kim Moon-hwan",full:"Kim Moon-hwan",pos:"RB",club:"Jeonbuk Motors",age:29,caps:28,goals:1},
+    {n:5,name:"Kim Min-jae",full:"Kim Min-jae",pos:"CB",club:"Bayern München",age:27,caps:56,goals:5},
+    {n:4,name:"Kim Young-gwon",full:"Kim Young-gwon",pos:"CB",club:"Ulsan HD",age:34,caps:104,goals:5},
+    {n:3,name:"Hong Chul",full:"Hong Chul",pos:"LB",club:"Suwon FC",age:33,caps:22,goals:0},
+    {n:8,name:"Jung Woo-young",full:"Jung Woo-young",pos:"MF",club:"Al-Qadsiah",age:34,caps:84,goals:4},
+    {n:6,name:"Lee Jae-sung",full:"Lee Jae-sung",pos:"MF",club:"Mainz 05",age:31,caps:58,goals:8},
+    {n:10,name:"Lee Kang-in",full:"Lee Kang-in",pos:"MF",club:"Paris Saint-Germain",age:23,caps:36,goals:11},
+    {n:7,name:"Son Heung-min",full:"Son Heung-min",pos:"FW",club:"Tottenham Hotspur",age:32,caps:120,goals:47},
+    {n:9,name:"Cho Gue-sung",full:"Cho Gue-sung",pos:"FW",club:"Freiburg",age:25,caps:18,goals:9},
+    {n:11,name:"Hwang Hee-chan",full:"Hwang Hee-chan",pos:"FW",club:"Wolverhampton",age:28,caps:52,goals:17}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"Con Son Heung-min como capitán y Lee Kang-in como emergente, Corea del Sur busca llegar a cuartos de final como en 2002."
+},
+"EE.UU.":{flag:"🇺🇸",group:"D",coach:"Gregg Berhalter",coachAge:50,formation:"4-3-3",ranking:13,confederation:"CONCACAF",
+  players:[
+    {n:1,name:"M. Turner",full:"Matt Turner",pos:"GK",club:"Nottingham Forest",age:30,caps:42,goals:0},
+    {n:2,name:"S. Dest",full:"Sergino Dest",pos:"RB",club:"PSV Eindhoven",age:24,caps:40,goals:3},
+    {n:5,name:"T. Zimmermann",full:"Tim Ream",pos:"CB",club:"Fulham",age:36,caps:44,goals:0},
+    {n:4,name:"C. Richards",full:"Chris Richards",pos:"CB",club:"Crystal Palace",age:24,caps:16,goals:0},
+    {n:3,name:"A. Robinson",full:"Antonee Robinson",pos:"LB",club:"Fulham",age:27,caps:48,goals:1},
+    {n:8,name:"T. Adams",full:"Tyler Adams",pos:"MF",club:"AFC Bournemouth",age:25,caps:48,goals:1},
+    {n:6,name:"Y. Musah",full:"Yunus Musah",pos:"MF",club:"AC Milan",age:22,caps:38,goals:3},
+    {n:10,name:"C. Pulisic",full:"Christian Pulisic",pos:"MF",club:"AC Milan",age:25,caps:68,goals:26},
+    {n:11,name:"T. Weah",full:"Timothy Weah",pos:"FW",club:"Juventus",age:24,caps:32,goals:4},
+    {n:9,name:"J. Ferreira",full:"Jesús Ferreira",pos:"FW",club:"FC Dallas",age:24,caps:30,goals:10},
+    {n:7,name:"G. Reyna",full:"Giovanni Reyna",pos:"FW",club:"Borussia Dortmund",age:21,caps:26,goals:4}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"Anfitriones con Pulisic como estrella principal. La joven generación de EE.UU. busca ir lejos ante su propia afición."
+},
+"Nigeria":{flag:"🇳🇬",group:"H_OLD",coach:"José Peseiro",coachAge:63,formation:"4-2-3-1",ranking:39,confederation:"CAF",
+  players:[
+    {n:1,name:"F. Uzoho",full:"Francis Uzoho",pos:"GK",club:"Omonia Nicosia",age:26,caps:24,goals:0},
+    {n:2,name:"O. Aina",full:"Ola Aina",pos:"RB",club:"Nottingham Forest",age:28,caps:48,goals:1},
+    {n:5,name:"W. Troost-Ekong",full:"William Troost-Ekong",pos:"CB",club:"Watford",age:30,caps:68,goals:7},
+    {n:4,name:"C. Bassey",full:"Calvin Bassey",pos:"CB",club:"Fulham",age:24,caps:22,goals:0},
+    {n:3,name:"Z. Sanusi",full:"Zaidu Sanusi",pos:"LB",club:"Porto",age:26,caps:20,goals:1},
+    {n:8,name:"A. Iwobi",full:"Alex Iwobi",pos:"MF",club:"Fulham",age:28,caps:72,goals:10},
+    {n:6,name:"W. Ndidi",full:"Wilfred Ndidi",pos:"MF",club:"Leicester City",age:27,caps:58,goals:3},
+    {n:10,name:"K. Musa",full:"Ahmed Musa",pos:"MF",club:"Fatih Karagümrük",age:31,caps:104,goals:16},
+    {n:7,name:"S. Chukwueze",full:"Samuel Chukwueze",pos:"FW",club:"AC Milan",age:25,caps:38,goals:10},
+    {n:9,name:"V. Osimhen",full:"Victor Osimhen",pos:"FW",club:"Napoli",age:25,caps:36,goals:22},
+    {n:11,name:"A. Lookman",full:"Ademola Lookman",pos:"FW",club:"Atalanta",age:26,caps:28,goals:11}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"Las Súper Águilas tienen en Osimhen uno de los mejores delanteros del mundo. Nigeria siempre es un equipo peligroso."
+},
+"Suiza":{flag:"🇨🇭",group:"B",coach:"Murat Yakin",coachAge:49,formation:"3-4-2-1",ranking:20,confederation:"UEFA",
+  players:[
+    {n:1,name:"Y. Sommer",full:"Yann Sommer",pos:"GK",club:"Internazionale",age:35,caps:82,goals:0},
+    {n:2,name:"S. Widmer",full:"Silvan Widmer",pos:"WB",club:"Mainz 05",age:31,caps:40,goals:5},
+    {n:5,name:"M. Akanji",full:"Manuel Akanji",pos:"CB",club:"Manchester City",age:28,caps:52,goals:3},
+    {n:4,name:"F. Schär",full:"Fabian Schär",pos:"CB",club:"Newcastle United",age:32,caps:72,goals:10},
+    {n:3,name:"R. Rodríguez",full:"Ricardo Rodríguez",pos:"CB",club:"Torino",age:31,caps:100,goals:13},
+    {n:8,name:"G. Xhaka",full:"Granit Xhaka",pos:"MF",club:"Bayer Leverkusen",age:31,caps:118,goals:16},
+    {n:10,name:"H. Shaqiri",full:"Xherdan Shaqiri",pos:"MF",club:"Chicago Fire",age:32,caps:106,goals:32},
+    {n:6,name:"R. Freuler",full:"Remo Freuler",pos:"MF",club:"Nottingham Forest",age:32,caps:54,goals:4},
+    {n:7,name:"B. Embolo",full:"Breel Embolo",pos:"FW",club:"Monaco",age:27,caps:64,goals:16},
+    {n:9,name:"H. Seferović",full:"Haris Seferović",pos:"FW",club:"Galatasaray",age:31,caps:76,goals:27},
+    {n:11,name:"D. Ndoye",full:"Dan Ndoye",pos:"FW",club:"Bologna",age:24,caps:18,goals:4}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"Suiza es un equipo sólido y disciplinado con Xhaka como motor. Nunca pierde pero tampoco genera expectativas enormes."
+},
+"Honduras":{flag:"🇭🇳",group:"H_OLD",coach:"Reinaldo Rueda",coachAge:66,formation:"4-4-2",ranking:72,confederation:"CONCACAF",
+  players:[
+    {n:1,name:"L. Moreira",full:"Luis López",pos:"GK",club:"Colorado Rapids",age:30,caps:18,goals:0},
+    {n:2,name:"M. García",full:"Marcelo Santos",pos:"RB",club:"Real España",age:26,caps:12,goals:0},
+    {n:5,name:"O. Elvir",full:"Denil Maldonado",pos:"CB",club:"Chicago Fire",age:24,caps:16,goals:1},
+    {n:4,name:"M. Álvarez",full:"Marcelo Pereira",pos:"CB",club:"Motagua",age:28,caps:22,goals:1},
+    {n:3,name:"J. Bengtson",full:"Emilio Izaguirre",pos:"LB",club:"Motagua",age:36,caps:92,goals:3},
+    {n:8,name:"A. Figueroa",full:"Alfredo Mejía",pos:"MF",club:"Deportivo Olimpia",age:32,caps:68,goals:4},
+    {n:6,name:"R. Aceituno",full:"Romell Quioto",pos:"MF",club:"CF Montréal",age:31,caps:62,goals:12},
+    {n:10,name:"J. Costly",full:"Rigoberto Rivas",pos:"MF",club:"Nottingham Forest",age:24,caps:20,goals:3},
+    {n:7,name:"D. Acosta",full:"Diego Rodríguez",pos:"FW",club:"New York Red Bulls",age:22,caps:14,goals:4},
+    {n:9,name:"A. Menjívar",full:"Eddie Hernández",pos:"FW",club:"Deportivo Olimpia",age:27,caps:28,goals:9},
+    {n:11,name:"E. Bengtson",full:"Anthony Lozano",pos:"FW",club:"Getafe",age:30,caps:52,goals:16}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"Honduras regresa al Mundial después de varios torneos de ausencia. El equipo busca sorprender en el Grupo H."
+},
+"Italia":{flag:"🇮🇹",group:"I_OLD",coach:"Luciano Spalletti",coachAge:65,formation:"3-4-3",ranking:11,confederation:"UEFA",
+  players:[
+    {n:1,name:"G. Donnarumma",full:"Gianluigi Donnarumma",pos:"GK",club:"Paris Saint-Germain",age:25,caps:68,goals:0},
+    {n:2,name:"G. Di Lorenzo",full:"Giovanni Di Lorenzo",pos:"WB",club:"Napoli",age:30,caps:42,goals:2},
+    {n:5,name:"A. Bastoni",full:"Alessandro Bastoni",pos:"CB",club:"Internazionale",age:25,caps:36,goals:2},
+    {n:4,name:"R. Calafiori",full:"Riccardo Calafiori",pos:"CB",club:"Bologna",age:22,caps:12,goals:2},
+    {n:3,name:"F. Dimarco",full:"Federico Dimarco",pos:"WB",club:"Internazionale",age:26,caps:28,goals:6},
+    {n:8,name:"N. Barella",full:"Niccolò Barella",pos:"MF",club:"Internazionale",age:27,caps:58,goals:8},
+    {n:6,name:"J. Jorginho",full:"Jorginho",pos:"MF",club:"Arsenal",age:32,caps:58,goals:8},
+    {n:10,name:"S. Tonali",full:"Sandro Tonali",pos:"MF",club:"Newcastle United",age:24,caps:28,goals:2},
+    {n:14,name:"F. Chiesa",full:"Federico Chiesa",pos:"FW",club:"Liverpool",age:26,caps:46,goals:16},
+    {n:9,name:"G. Scamacca",full:"Gianluca Scamacca",pos:"FW",club:"Atalanta",age:25,caps:24,goals:9},
+    {n:11,name:"L. Pellegrini",full:"Lorenzo Pellegrini",pos:"FW",club:"Roma",age:27,caps:48,goals:12}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"Italia vuelve a un Mundial tras perderse el de 2022. Con Donnarumma, Barella y Chiesa, los Azzurri buscan su 5ta estrella."
+},
+"Canadá":{flag:"🇨🇦",group:"B",coach:"Jesse Marsch",coachAge:49,formation:"4-3-3",ranking:42,confederation:"CONCACAF",
+  players:[
+    {n:1,name:"M. Crepeau",full:"Maxime Crépeau",pos:"GK",club:"LA Galaxy",age:30,caps:28,goals:0},
+    {n:2,name:"R. Laryea",full:"Richie Laryea",pos:"RB",club:"Nottingham Forest",age:29,caps:38,goals:2},
+    {n:5,name:"K. Miller",full:"Kamal Miller",pos:"CB",club:"LAFC",age:27,caps:32,goals:1},
+    {n:4,name:"D. Bombito",full:"Derrick Bombito",pos:"CB",club:"Colorado Rapids",age:23,caps:12,goals:0},
+    {n:3,name:"S. Corbeanu",full:"Gabriël Çalhanoğlu",pos:"LB",club:"CF Montréal",age:22,caps:8,goals:0},
+    {n:8,name:"S. Eustaquio",full:"Stephen Eustáquio",pos:"MF",club:"Porto",age:27,caps:38,goals:6},
+    {n:6,name:"I. Larin",full:"Cyle Larin",pos:"MF",club:"Real Valladolid",age:29,caps:64,goals:26},
+    {n:10,name:"J. David",full:"Jonathan David",pos:"FW",club:"Lille",age:24,caps:48,goals:26},
+    {n:7,name:"A. Davies",full:"Alphonso Davies",pos:"FW",club:"Bayern München",age:23,caps:52,goals:13},
+    {n:9,name:"T. Buchanan",full:"Tajon Buchanan",pos:"FW",club:"Internazionale",age:25,caps:36,goals:8},
+    {n:11,name:"J. Adekugbe",full:"Samuel Adekugbe",pos:"FW",club:"Hatayspor",age:28,caps:38,goals:4}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"Canadá vive su mejor momento histórico. Con Davies, David y Buchanan, Los Rojos buscan sorprender en el torneo que coorganizan."
+},
+"Argelia":{flag:"🇩🇿",group:"J",coach:"Djamel Belmadi",coachAge:48,formation:"4-3-3",ranking:35,confederation:"CAF",
+  players:[
+    {n:1,name:"R. M'Bolhi",full:"Raïs M'Bolhi",pos:"GK",club:"Al-Ettifaq",age:36,caps:74,goals:0},
+    {n:2,name:"A. Atal",full:"Youcef Atal",pos:"RB",club:"OGC Nice",age:28,caps:42,goals:7},
+    {n:5,name:"D. Benlamri",full:"Djamel Benlamri",pos:"CB",club:"Al-Qadsiah",age:33,caps:52,goals:2},
+    {n:4,name:"R. Bensebaini",full:"Ramy Bensebaini",pos:"CB",club:"Borussia Dortmund",age:29,caps:36,goals:7},
+    {n:3,name:"H. Belloumi",full:"Houcine Belloumi",pos:"LB",club:"Olympique Lyonnais",age:26,caps:20,goals:1},
+    {n:8,name:"N. Bentaleb",full:"Nabil Bentaleb",pos:"MF",club:"Angers SCO",age:29,caps:52,goals:4},
+    {n:14,name:"I. Bennacer",full:"Ismaël Bennacer",pos:"MF",club:"AC Milan",age:26,caps:46,goals:3},
+    {n:10,name:"R. Mahrez",full:"Riyad Mahrez",pos:"MF",club:"Al-Ahli",age:33,caps:92,goals:30},
+    {n:7,name:"S. Boudaoui",full:"Hicham Boudaoui",pos:"FW",club:"OGC Nice",age:24,caps:26,goals:4},
+    {n:9,name:"I. Slimani",full:"Islam Slimani",pos:"FW",club:"Brest",age:35,caps:98,goals:42},
+    {n:11,name:"B. Bounedjah",full:"Baghdad Bounedjah",pos:"FW",club:"Al-Sadd",age:32,caps:46,goals:14}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"Campeona de África en 2019. Con Mahrez y Bennacer, Argelia tiene clase europea para competir en el torneo."
+},
+"Chile":{flag:"🇨🇱",group:"I_OLD",coach:"Ricardo Gareca",coachAge:65,formation:"4-3-3",ranking:40,confederation:"CONMEBOL",
+  players:[
+    {n:1,name:"C. Bravo",full:"Claudio Bravo",pos:"GK",club:"Real Betis",age:41,caps:152,goals:0},
+    {n:2,name:"M. Isla",full:"Mauricio Isla",pos:"RB",club:"Peñarol",age:35,caps:136,goals:7},
+    {n:5,name:"G. Maripán",full:"Guillermo Maripán",pos:"CB",club:"Monaco",age:30,caps:48,goals:3},
+    {n:4,name:"C. Pizarro",full:"Carlos Palacios",pos:"CB",club:"Colo-Colo",age:23,caps:14,goals:2},
+    {n:3,name:"E. Pulgar",full:"Erick Pulgar",pos:"LB",club:"Fiorentina",age:30,caps:52,goals:8},
+    {n:8,name:"A. Vidal",full:"Arturo Vidal",pos:"MF",club:"Colo-Colo",age:36,caps:148,goals:39},
+    {n:6,name:"M. Arias",full:"Charles Aránguiz",pos:"MF",club:"Bayer Leverkusen",age:34,caps:100,goals:16},
+    {n:10,name:"A. Sánchez",full:"Alexis Sánchez",pos:"FW",club:"Udinese",age:35,caps:162,goals:50},
+    {n:7,name:"V. Pizarro",full:"Víctor Dávila",pos:"FW",club:"CSKA Moscú",age:26,caps:22,goals:5},
+    {n:9,name:"B. Díaz",full:"Benja Kuscevic",pos:"FW",club:"Mallorca",age:27,caps:18,goals:2},
+    {n:11,name:"E. Vargas",full:"Eduardo Vargas",pos:"FW",club:"Peñarol",age:34,caps:138,goals:48}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"Chile regresa al Mundial con Gareca. Alexis Sánchez y Vidal son los últimos eslabones de la generación dorada campeona de América en 2015 y 2016."
+},
+"México":{flag:"🇲🇽",group:"A",coach:"Javier Aguirre",coachAge:65,formation:"4-3-3",ranking:15,confederation:"CONCACAF",
+  players:[
+    {n:1,name:"G. Ochoa",full:"Guillermo Ochoa",pos:"GK",club:"Club América",age:38,caps:136,goals:0},
+    {n:2,name:"J. Sánchez",full:"Jorge Sánchez",pos:"RB",club:"Porto",age:26,caps:38,goals:1},
+    {n:5,name:"C. Montes",full:"César Montes",pos:"CB",club:"Espanyol",age:27,caps:36,goals:2},
+    {n:4,name:"E. Álvarez",full:"Edson Álvarez",pos:"CB",club:"West Ham United",age:26,caps:64,goals:4},
+    {n:3,name:"J. Vásquez",full:"Jesús Gallardo",pos:"LB",club:"Rayados Monterrey",age:29,caps:52,goals:3},
+    {n:18,name:"H. Herrera",full:"Héctor Herrera",pos:"MF",club:"Houston Dynamo",age:34,caps:102,goals:14},
+    {n:14,name:"L. Chávez",full:"Luis Chávez",pos:"MF",club:"Dynamo Dresden",age:28,caps:28,goals:9},
+    {n:8,name:"Ó. Rodríguez",full:"Óscar Rodríguez",pos:"MF",club:"Sevilla",age:27,caps:24,goals:5},
+    {n:11,name:"H. Lozano",full:"Hirving Lozano",pos:"FW",club:"PSV Eindhoven",age:29,caps:90,goals:28},
+    {n:10,name:"A. Vega",full:"Alexis Vega",pos:"FW",club:"Rayados Monterrey",age:27,caps:44,goals:12},
+    {n:9,name:"S. Giménez",full:"Santiago Giménez",pos:"FW",club:"Feyenoord",age:23,caps:18,goals:10}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"Anfitrión del torneo junto a EE.UU. y Canadá. El Tri juega en casa ante su gran afición y busca superar el quinto partido por primera vez."
+},
+"Guinea":{flag:"🇬🇳",group:"H_OLD",coach:"Kaba Diawara",coachAge:48,formation:"4-3-3",ranking:78,confederation:"CAF",
+  players:[
+    {n:1,name:"I. Camara",full:"Ibrahima Camara",pos:"GK",club:"Horoya AC",age:28,caps:14,goals:0},
+    {n:2,name:"B. Baldé",full:"Bangaly Fodé Kouyaté",pos:"RB",club:"Crystal Palace",age:31,caps:52,goals:2},
+    {n:5,name:"F. Bangura",full:"Falaye Sacko",pos:"CB",club:"Vizela",age:29,caps:26,goals:1},
+    {n:4,name:"M. Diallo",full:"Mohamed Camara",pos:"CB",club:"Monaco",age:24,caps:22,goals:1},
+    {n:3,name:"S. Sylla",full:"Seydouba Cissé",pos:"LB",club:"Zenit",age:30,caps:28,goals:2},
+    {n:8,name:"N. Camara",full:"Naby Keïta",pos:"MF",club:"Werder Bremen",age:29,caps:58,goals:8},
+    {n:6,name:"M. Kouyaté",full:"Oumar Camara",pos:"MF",club:"Slavia Praga",age:25,caps:18,goals:2},
+    {n:10,name:"S. Keïta",full:"Sory Kaba",pos:"MF",club:"Elche",age:29,caps:38,goals:12},
+    {n:7,name:"A. Diallo",full:"Issiaga Sylla",pos:"FW",club:"Toulouse",age:29,caps:42,goals:4},
+    {n:9,name:"S. Kourouma",full:"Serhou Guirassy",pos:"FW",club:"Borussia Dortmund",age:28,caps:26,goals:14},
+    {n:11,name:"M. Guilavogui",full:"José Konaté",pos:"FW",club:"Brøndby IF",age:26,caps:20,goals:7}
+  ],
+  stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],
+  bio:"Guinea debuta en un Mundial. Con Guirassy del Borussia Dortmund y Keïta como referentes, tiene jugadores de nivel europeo."
+},
+};
+
+// OFFICIAL FIFA WORLD CUP 2026 FIXTURE - All 72 group stage matches
+// Source: FIFA official calendar + multiple verified sources
+// 12 groups (A-L), 4 teams each, 6 matches per group
+// Times in ET (Eastern Time)
+
+const MATCHES = [
+// ── GROUP A: México, Sudáfrica, Corea del Sur, Rep. Checa ──
+{id:1,g:"A",date:"2026-06-11",t:"15:00",home:"México",away:"Sudáfrica",venue:"Estadio Ciudad de México, CDMX",fh:"🇲🇽",fa:"🇿🇦",phase:"groups",sh:null,sa:null,pw:[60,22,18]},
+{id:2,g:"A",date:"2026-06-11",t:"22:00",home:"Corea del Sur",away:"Rep. Checa",venue:"Estadio Guadalajara, Guadalajara",fh:"🇰🇷",fa:"🇨🇿",phase:"groups",sh:null,sa:null,pw:[44,28,28]},
+{id:3,g:"A",date:"2026-06-18",t:"12:00",home:"Rep. Checa",away:"Sudáfrica",venue:"Mercedes-Benz Stadium, Atlanta",fh:"🇨🇿",fa:"🇿🇦",phase:"groups",sh:null,sa:null,pw:[52,28,20]},
+{id:4,g:"A",date:"2026-06-18",t:"21:00",home:"México",away:"Corea del Sur",venue:"Estadio Guadalajara, Guadalajara",fh:"🇲🇽",fa:"🇰🇷",phase:"groups",sh:null,sa:null,pw:[48,26,26]},
+{id:5,g:"A",date:"2026-06-24",t:"21:00",home:"Rep. Checa",away:"México",venue:"Estadio Ciudad de México, CDMX",fh:"🇨🇿",fa:"🇲🇽",phase:"groups",sh:null,sa:null,pw:[26,24,50]},
+{id:6,g:"A",date:"2026-06-24",t:"21:00",home:"Sudáfrica",away:"Corea del Sur",venue:"Estadio Monterrey, Monterrey",fh:"🇿🇦",fa:"🇰🇷",phase:"groups",sh:null,sa:null,pw:[30,28,42]},
+
+// ── GROUP B: Canadá, Bosnia y Herz., Catar, Suiza ──
+{id:7,g:"B",date:"2026-06-12",t:"15:00",home:"Canadá",away:"Bosnia y Herz.",venue:"BMO Field, Toronto",fh:"🇨🇦",fa:"🇧🇦",phase:"groups",sh:null,sa:null,pw:[46,26,28]},
+{id:8,g:"B",date:"2026-06-13",t:"15:00",home:"Catar",away:"Suiza",venue:"Levi's Stadium, San Francisco",fh:"🇶🇦",fa:"🇨🇭",phase:"groups",sh:null,sa:null,pw:[22,20,58]},
+{id:9,g:"B",date:"2026-06-18",t:"15:00",home:"Suiza",away:"Bosnia y Herz.",venue:"SoFi Stadium, Los Ángeles",fh:"🇨🇭",fa:"🇧🇦",phase:"groups",sh:null,sa:null,pw:[54,26,20]},
+{id:10,g:"B",date:"2026-06-18",t:"18:00",home:"Canadá",away:"Catar",venue:"BC Place, Vancouver",fh:"🇨🇦",fa:"🇶🇦",phase:"groups",sh:null,sa:null,pw:[68,18,14]},
+{id:11,g:"B",date:"2026-06-24",t:"15:00",home:"Suiza",away:"Canadá",venue:"BC Place, Vancouver",fh:"🇨🇭",fa:"🇨🇦",phase:"groups",sh:null,sa:null,pw:[36,28,36]},
+{id:12,g:"B",date:"2026-06-24",t:"15:00",home:"Bosnia y Herz.",away:"Catar",venue:"Lumen Field, Seattle",fh:"🇧🇦",fa:"🇶🇦",phase:"groups",sh:null,sa:null,pw:[54,26,20]},
+
+// ── GROUP C: Brasil, Marruecos, Haití, Escocia ──
+{id:13,g:"C",date:"2026-06-13",t:"18:00",home:"Brasil",away:"Marruecos",venue:"MetLife Stadium, Nueva York/NJ",fh:"🇧🇷",fa:"🇲🇦",phase:"groups",sh:null,sa:null,pw:[60,20,20]},
+{id:14,g:"C",date:"2026-06-13",t:"21:00",home:"Haití",away:"Escocia",venue:"Gillette Stadium, Boston",fh:"🇭🇹",fa:"🏴󠁧󠁢󠁳󠁣󠁴󠁿",phase:"groups",sh:null,sa:null,pw:[30,26,44]},
+{id:15,g:"C",date:"2026-06-19",t:"18:00",home:"Escocia",away:"Marruecos",venue:"Gillette Stadium, Boston",fh:"🏴󠁧󠁢󠁳󠁣󠁴󠁿",fa:"🇲🇦",phase:"groups",sh:null,sa:null,pw:[28,26,46]},
+{id:16,g:"C",date:"2026-06-19",t:"21:00",home:"Brasil",away:"Haití",venue:"Lincoln Financial Field, Filadelfia",fh:"🇧🇷",fa:"🇭🇹",phase:"groups",sh:null,sa:null,pw:[85,10,5]},
+{id:17,g:"C",date:"2026-06-24",t:"18:00",home:"Escocia",away:"Brasil",venue:"Hard Rock Stadium, Miami",fh:"🏴󠁧󠁢󠁳󠁣󠁴󠁿",fa:"🇧🇷",phase:"groups",sh:null,sa:null,pw:[14,16,70]},
+{id:18,g:"C",date:"2026-06-24",t:"18:00",home:"Marruecos",away:"Haití",venue:"Mercedes-Benz Stadium, Atlanta",fh:"🇲🇦",fa:"🇭🇹",phase:"groups",sh:null,sa:null,pw:[76,14,10]},
+
+// ── GROUP D: EE.UU., Paraguay, Australia, Turquía ──
+{id:19,g:"D",date:"2026-06-12",t:"21:00",home:"EE.UU.",away:"Paraguay",venue:"SoFi Stadium, Los Ángeles",fh:"🇺🇸",fa:"🇵🇾",phase:"groups",sh:null,sa:null,pw:[58,22,20]},
+{id:20,g:"D",date:"2026-06-13",t:"00:00",home:"Australia",away:"Turquía",venue:"BC Place, Vancouver",fh:"🇦🇺",fa:"🇹🇷",phase:"groups",sh:null,sa:null,pw:[38,28,34]},
+{id:21,g:"D",date:"2026-06-19",t:"15:00",home:"EE.UU.",away:"Australia",venue:"Lumen Field, Seattle",fh:"🇺🇸",fa:"🇦🇺",phase:"groups",sh:null,sa:null,pw:[52,26,22]},
+{id:22,g:"D",date:"2026-06-19",t:"00:00",home:"Turquía",away:"Paraguay",venue:"Levi's Stadium, San Francisco",fh:"🇹🇷",fa:"🇵🇾",phase:"groups",sh:null,sa:null,pw:[44,28,28]},
+{id:23,g:"D",date:"2026-06-25",t:"22:00",home:"Turquía",away:"EE.UU.",venue:"SoFi Stadium, Los Ángeles",fh:"🇹🇷",fa:"🇺🇸",phase:"groups",sh:null,sa:null,pw:[30,24,46]},
+{id:24,g:"D",date:"2026-06-25",t:"22:00",home:"Paraguay",away:"Australia",venue:"Levi's Stadium, San Francisco",fh:"🇵🇾",fa:"🇦🇺",phase:"groups",sh:null,sa:null,pw:[40,28,32]},
+
+// ── GROUP E: Alemania, Curazao, Costa de Marfil, Ecuador ──
+{id:25,g:"E",date:"2026-06-14",t:"13:00",home:"Alemania",away:"Curazao",venue:"NRG Stadium, Houston",fh:"🇩🇪",fa:"🇨🇼",phase:"groups",sh:null,sa:null,pw:[82,12,6]},
+{id:26,g:"E",date:"2026-06-14",t:"19:00",home:"Costa de Marfil",away:"Ecuador",venue:"Lincoln Financial Field, Filadelfia",fh:"🇨🇮",fa:"🇪🇨",phase:"groups",sh:null,sa:null,pw:[40,28,32]},
+{id:27,g:"E",date:"2026-06-20",t:"16:00",home:"Alemania",away:"Costa de Marfil",venue:"BMO Field, Toronto",fh:"🇩🇪",fa:"🇨🇮",phase:"groups",sh:null,sa:null,pw:[58,22,20]},
+{id:28,g:"E",date:"2026-06-20",t:"22:00",home:"Ecuador",away:"Curazao",venue:"Arrowhead Stadium, Kansas City",fh:"🇪🇨",fa:"🇨🇼",phase:"groups",sh:null,sa:null,pw:[70,18,12]},
+{id:29,g:"E",date:"2026-06-25",t:"16:00",home:"Curazao",away:"Costa de Marfil",venue:"Lincoln Financial Field, Filadelfia",fh:"🇨🇼",fa:"🇨🇮",phase:"groups",sh:null,sa:null,pw:[20,22,58]},
+{id:30,g:"E",date:"2026-06-25",t:"16:00",home:"Ecuador",away:"Alemania",venue:"MetLife Stadium, Nueva York/NJ",fh:"🇪🇨",fa:"🇩🇪",phase:"groups",sh:null,sa:null,pw:[24,22,54]},
+
+// ── GROUP F: Países Bajos, Japón, Suecia, Túnez ──
+{id:31,g:"F",date:"2026-06-14",t:"16:00",home:"Países Bajos",away:"Japón",venue:"AT&T Stadium, Dallas",fh:"🇳🇱",fa:"🇯🇵",phase:"groups",sh:null,sa:null,pw:[52,24,24]},
+{id:32,g:"F",date:"2026-06-14",t:"22:00",home:"Suecia",away:"Túnez",venue:"Estadio Monterrey, Monterrey",fh:"🇸🇪",fa:"🇹🇳",phase:"groups",sh:null,sa:null,pw:[56,24,20]},
+{id:33,g:"F",date:"2026-06-20",t:"13:00",home:"Países Bajos",away:"Suecia",venue:"NRG Stadium, Houston",fh:"🇳🇱",fa:"🇸🇪",phase:"groups",sh:null,sa:null,pw:[48,26,26]},
+{id:34,g:"F",date:"2026-06-20",t:"00:00",home:"Túnez",away:"Japón",venue:"Estadio Monterrey, Monterrey",fh:"🇹🇳",fa:"🇯🇵",phase:"groups",sh:null,sa:null,pw:[36,28,36]},
+{id:35,g:"F",date:"2026-06-25",t:"19:00",home:"Japón",away:"Suecia",venue:"AT&T Stadium, Dallas",fh:"🇯🇵",fa:"🇸🇪",phase:"groups",sh:null,sa:null,pw:[40,26,34]},
+{id:36,g:"F",date:"2026-06-25",t:"19:00",home:"Túnez",away:"Países Bajos",venue:"Arrowhead Stadium, Kansas City",fh:"🇹🇳",fa:"🇳🇱",phase:"groups",sh:null,sa:null,pw:[20,18,62]},
+
+// ── GROUP G: Bélgica, Egipto, Irán, Nueva Zelanda ──
+{id:37,g:"G",date:"2026-06-15",t:"15:00",home:"Bélgica",away:"Egipto",venue:"Lumen Field, Seattle",fh:"🇧🇪",fa:"🇪🇬",phase:"groups",sh:null,sa:null,pw:[60,22,18]},
+{id:38,g:"G",date:"2026-06-15",t:"21:00",home:"Irán",away:"Nueva Zelanda",venue:"SoFi Stadium, Los Ángeles",fh:"🇮🇷",fa:"🇳🇿",phase:"groups",sh:null,sa:null,pw:[52,24,24]},
+{id:39,g:"G",date:"2026-06-21",t:"15:00",home:"Bélgica",away:"Irán",venue:"SoFi Stadium, Los Ángeles",fh:"🇧🇪",fa:"🇮🇷",phase:"groups",sh:null,sa:null,pw:[56,24,20]},
+{id:40,g:"G",date:"2026-06-21",t:"21:00",home:"Nueva Zelanda",away:"Egipto",venue:"BC Place, Vancouver",fh:"🇳🇿",fa:"🇪🇬",phase:"groups",sh:null,sa:null,pw:[34,28,38]},
+{id:41,g:"G",date:"2026-06-26",t:"23:00",home:"Egipto",away:"Irán",venue:"Lumen Field, Seattle",fh:"🇪🇬",fa:"🇮🇷",phase:"groups",sh:null,sa:null,pw:[38,28,34]},
+{id:42,g:"G",date:"2026-06-26",t:"23:00",home:"Nueva Zelanda",away:"Bélgica",venue:"BC Place, Vancouver",fh:"🇳🇿",fa:"🇧🇪",phase:"groups",sh:null,sa:null,pw:[14,16,70]},
+
+// ── GROUP H: España, Cabo Verde, Arabia Saudita, Uruguay ──
+{id:43,g:"H",date:"2026-06-15",t:"12:00",home:"España",away:"Cabo Verde",venue:"Mercedes-Benz Stadium, Atlanta",fh:"🇪🇸",fa:"🇨🇻",phase:"groups",sh:null,sa:null,pw:[80,12,8]},
+{id:44,g:"H",date:"2026-06-15",t:"18:00",home:"Arabia Saudita",away:"Uruguay",venue:"Hard Rock Stadium, Miami",fh:"🇸🇦",fa:"🇺🇾",phase:"groups",sh:null,sa:null,pw:[30,24,46]},
+{id:45,g:"H",date:"2026-06-21",t:"12:00",home:"España",away:"Arabia Saudita",venue:"Mercedes-Benz Stadium, Atlanta",fh:"🇪🇸",fa:"🇸🇦",phase:"groups",sh:null,sa:null,pw:[68,18,14]},
+{id:46,g:"H",date:"2026-06-21",t:"18:00",home:"Uruguay",away:"Cabo Verde",venue:"Hard Rock Stadium, Miami",fh:"🇺🇾",fa:"🇨🇻",phase:"groups",sh:null,sa:null,pw:[74,16,10]},
+{id:47,g:"H",date:"2026-06-26",t:"20:00",home:"Cabo Verde",away:"Arabia Saudita",venue:"NRG Stadium, Houston",fh:"🇨🇻",fa:"🇸🇦",phase:"groups",sh:null,sa:null,pw:[36,28,36]},
+{id:48,g:"H",date:"2026-06-26",t:"20:00",home:"Uruguay",away:"España",venue:"Estadio Guadalajara, Guadalajara",fh:"🇺🇾",fa:"🇪🇸",phase:"groups",sh:null,sa:null,pw:[28,22,50]},
+
+// ── GROUP I: Francia, Senegal, Irak, Noruega ──
+{id:49,g:"I",date:"2026-06-16",t:"15:00",home:"Francia",away:"Senegal",venue:"MetLife Stadium, Nueva York/NJ",fh:"🇫🇷",fa:"🇸🇳",phase:"groups",sh:null,sa:null,pw:[58,22,20]},
+{id:50,g:"I",date:"2026-06-16",t:"18:00",home:"Irak",away:"Noruega",venue:"Gillette Stadium, Boston",fh:"🇮🇶",fa:"🇳🇴",phase:"groups",sh:null,sa:null,pw:[22,20,58]},
+{id:51,g:"I",date:"2026-06-22",t:"17:00",home:"Francia",away:"Irak",venue:"Lincoln Financial Field, Filadelfia",fh:"🇫🇷",fa:"🇮🇶",phase:"groups",sh:null,sa:null,pw:[80,12,8]},
+{id:52,g:"I",date:"2026-06-22",t:"20:00",home:"Noruega",away:"Senegal",venue:"MetLife Stadium, Nueva York/NJ",fh:"🇳🇴",fa:"🇸🇳",phase:"groups",sh:null,sa:null,pw:[46,26,28]},
+{id:53,g:"I",date:"2026-06-26",t:"15:00",home:"Noruega",away:"Francia",venue:"Gillette Stadium, Boston",fh:"🇳🇴",fa:"🇫🇷",phase:"groups",sh:null,sa:null,pw:[28,22,50]},
+{id:54,g:"I",date:"2026-06-26",t:"15:00",home:"Senegal",away:"Irak",venue:"BMO Field, Toronto",fh:"🇸🇳",fa:"🇮🇶",phase:"groups",sh:null,sa:null,pw:[60,22,18]},
+
+// ── GROUP J: Argentina, Argelia, Austria, Jordania ──
+{id:55,g:"J",date:"2026-06-16",t:"21:00",home:"Argentina",away:"Argelia",venue:"Arrowhead Stadium, Kansas City",fh:"🇦🇷",fa:"🇩🇿",phase:"groups",sh:null,sa:null,pw:[68,18,14]},
+{id:56,g:"J",date:"2026-06-17",t:"00:00",home:"Austria",away:"Jordania",venue:"Levi's Stadium, San Francisco",fh:"🇦🇹",fa:"🇯🇴",phase:"groups",sh:null,sa:null,pw:[60,22,18]},
+{id:57,g:"J",date:"2026-06-22",t:"13:00",home:"Argentina",away:"Austria",venue:"AT&T Stadium, Dallas",fh:"🇦🇷",fa:"🇦🇹",phase:"groups",sh:null,sa:null,pw:[64,20,16]},
+{id:58,g:"J",date:"2026-06-22",t:"23:00",home:"Jordania",away:"Argelia",venue:"Levi's Stadium, San Francisco",fh:"🇯🇴",fa:"🇩🇿",phase:"groups",sh:null,sa:null,pw:[30,28,42]},
+{id:59,g:"J",date:"2026-06-27",t:"22:00",home:"Argelia",away:"Austria",venue:"Arrowhead Stadium, Kansas City",fh:"🇩🇿",fa:"🇦🇹",phase:"groups",sh:null,sa:null,pw:[38,28,34]},
+{id:60,g:"J",date:"2026-06-27",t:"22:00",home:"Jordania",away:"Argentina",venue:"AT&T Stadium, Dallas",fh:"🇯🇴",fa:"🇦🇷",phase:"groups",sh:null,sa:null,pw:[8,10,82]},
+
+// ── GROUP K: Portugal, RD Congo, Uzbekistán, Colombia ──
+{id:61,g:"K",date:"2026-06-17",t:"13:00",home:"Portugal",away:"RD Congo",venue:"NRG Stadium, Houston",fh:"🇵🇹",fa:"🇨🇩",phase:"groups",sh:null,sa:null,pw:[72,16,12]},
+{id:62,g:"K",date:"2026-06-17",t:"22:00",home:"Uzbekistán",away:"Colombia",venue:"Estadio Azteca, CDMX",fh:"🇺🇿",fa:"🇨🇴",phase:"groups",sh:null,sa:null,pw:[24,22,54]},
+{id:63,g:"K",date:"2026-06-23",t:"13:00",home:"Portugal",away:"Uzbekistán",venue:"NRG Stadium, Houston",fh:"🇵🇹",fa:"🇺🇿",phase:"groups",sh:null,sa:null,pw:[76,14,10]},
+{id:64,g:"K",date:"2026-06-23",t:"22:00",home:"Colombia",away:"RD Congo",venue:"Estadio Guadalajara, Guadalajara",fh:"🇨🇴",fa:"🇨🇩",phase:"groups",sh:null,sa:null,pw:[62,22,16]},
+{id:65,g:"K",date:"2026-06-27",t:"19:30",home:"Colombia",away:"Portugal",venue:"Hard Rock Stadium, Miami",fh:"🇨🇴",fa:"🇵🇹",phase:"groups",sh:null,sa:null,pw:[28,22,50]},
+{id:66,g:"K",date:"2026-06-27",t:"19:30",home:"RD Congo",away:"Uzbekistán",venue:"Mercedes-Benz Stadium, Atlanta",fh:"🇨🇩",fa:"🇺🇿",phase:"groups",sh:null,sa:null,pw:[50,26,24]},
+
+// ── GROUP L: Inglaterra, Croacia, Ghana, Panamá ──
+{id:67,g:"L",date:"2026-06-17",t:"16:00",home:"Inglaterra",away:"Croacia",venue:"AT&T Stadium, Dallas",fh:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",fa:"🇭🇷",phase:"groups",sh:null,sa:null,pw:[52,24,24]},
+{id:68,g:"L",date:"2026-06-17",t:"19:00",home:"Ghana",away:"Panamá",venue:"BMO Field, Toronto",fh:"🇬🇭",fa:"🇵🇦",phase:"groups",sh:null,sa:null,pw:[44,28,28]},
+{id:69,g:"L",date:"2026-06-23",t:"16:00",home:"Inglaterra",away:"Ghana",venue:"Gillette Stadium, Boston",fh:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",fa:"🇬🇭",phase:"groups",sh:null,sa:null,pw:[60,22,18]},
+{id:70,g:"L",date:"2026-06-23",t:"19:00",home:"Panamá",away:"Croacia",venue:"BMO Field, Toronto",fh:"🇵🇦",fa:"🇭🇷",phase:"groups",sh:null,sa:null,pw:[28,24,48]},
+{id:71,g:"L",date:"2026-06-27",t:"17:00",home:"Panamá",away:"Inglaterra",venue:"MetLife Stadium, Nueva York/NJ",fh:"🇵🇦",fa:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",phase:"groups",sh:null,sa:null,pw:[12,14,74]},
+{id:72,g:"L",date:"2026-06-27",t:"17:00",home:"Croacia",away:"Ghana",venue:"Lincoln Financial Field, Filadelfia",fh:"🇭🇷",fa:"🇬🇭",phase:"groups",sh:null,sa:null,pw:[54,24,22]},
+
+// ── ROUND OF 32 (Dieciseisavos) ──
+{id:73,g:"-",date:"2026-06-28",t:"18:00",home:"1° Grupo A",away:"2° Grupo B",venue:"MetLife Stadium, Nueva York/NJ",fh:"🏳",fa:"🏳",phase:"r32",sh:null,sa:null,pw:[50,25,25]},
+{id:74,g:"-",date:"2026-06-28",t:"22:00",home:"1° Grupo C",away:"2° Grupo D",venue:"Gillette Stadium, Boston",fh:"🏳",fa:"🏳",phase:"r32",sh:null,sa:null,pw:[50,25,25]},
+{id:75,g:"-",date:"2026-06-29",t:"14:00",home:"1° Grupo E",away:"2° Grupo F",venue:"Estadio Monterrey, Monterrey",fh:"🏳",fa:"🏳",phase:"r32",sh:null,sa:null,pw:[50,25,25]},
+{id:76,g:"-",date:"2026-06-29",t:"18:00",home:"1° Grupo G",away:"2° Grupo H",venue:"NRG Stadium, Houston",fh:"🏳",fa:"🏳",phase:"r32",sh:null,sa:null,pw:[50,25,25]},
+{id:77,g:"-",date:"2026-06-29",t:"22:00",home:"1° Grupo I",away:"2° Grupo J",venue:"AT&T Stadium, Dallas",fh:"🏳",fa:"🏳",phase:"r32",sh:null,sa:null,pw:[50,25,25]},
+{id:78,g:"-",date:"2026-06-30",t:"14:00",home:"1° Grupo K",away:"2° Grupo L",venue:"Estadio Ciudad de México, CDMX",fh:"🏳",fa:"🏳",phase:"r32",sh:null,sa:null,pw:[50,25,25]},
+{id:79,g:"-",date:"2026-06-30",t:"18:00",home:"1° Grupo B",away:"2° Grupo A",venue:"Levi's Stadium, San Francisco",fh:"🏳",fa:"🏳",phase:"r32",sh:null,sa:null,pw:[50,25,25]},
+{id:80,g:"-",date:"2026-06-30",t:"22:00",home:"1° Grupo D",away:"2° Grupo C",venue:"SoFi Stadium, Los Ángeles",fh:"🏳",fa:"🏳",phase:"r32",sh:null,sa:null,pw:[50,25,25]},
+{id:81,g:"-",date:"2026-07-01",t:"14:00",home:"1° Grupo F",away:"2° Grupo E",venue:"BMO Field, Toronto",fh:"🏳",fa:"🏳",phase:"r32",sh:null,sa:null,pw:[50,25,25]},
+{id:82,g:"-",date:"2026-07-01",t:"18:00",home:"1° Grupo H",away:"2° Grupo G",venue:"Mercedes-Benz Stadium, Atlanta",fh:"🏳",fa:"🏳",phase:"r32",sh:null,sa:null,pw:[50,25,25]},
+{id:83,g:"-",date:"2026-07-01",t:"22:00",home:"1° Grupo J",away:"2° Grupo I",venue:"Lumen Field, Seattle",fh:"🏳",fa:"🏳",phase:"r32",sh:null,sa:null,pw:[50,25,25]},
+{id:84,g:"-",date:"2026-07-02",t:"14:00",home:"1° Grupo L",away:"2° Grupo K",venue:"BC Place, Vancouver",fh:"🏳",fa:"🏳",phase:"r32",sh:null,sa:null,pw:[50,25,25]},
+{id:85,g:"-",date:"2026-07-02",t:"18:00",home:"3° Mejor 1",away:"3° Mejor 2",venue:"Hard Rock Stadium, Miami",fh:"🏳",fa:"🏳",phase:"r32",sh:null,sa:null,pw:[50,25,25]},
+{id:86,g:"-",date:"2026-07-02",t:"22:00",home:"3° Mejor 3",away:"3° Mejor 4",venue:"Arrowhead Stadium, Kansas City",fh:"🏳",fa:"🏳",phase:"r32",sh:null,sa:null,pw:[50,25,25]},
+{id:87,g:"-",date:"2026-07-03",t:"18:00",home:"3° Mejor 5",away:"3° Mejor 6",venue:"Lincoln Financial Field, Filadelfia",fh:"🏳",fa:"🏳",phase:"r32",sh:null,sa:null,pw:[50,25,25]},
+{id:88,g:"-",date:"2026-07-03",t:"22:00",home:"3° Mejor 7",away:"3° Mejor 8",venue:"MetLife Stadium, Nueva York/NJ",fh:"🏳",fa:"🏳",phase:"r32",sh:null,sa:null,pw:[50,25,25]},
+
+// ── ROUND OF 16 (Octavos) ──
+{id:89,g:"-",date:"2026-07-04",t:"18:00",home:"Gan. R32-1",away:"Gan. R32-2",venue:"Lincoln Financial Field, Filadelfia",fh:"🏳",fa:"🏳",phase:"r16",sh:null,sa:null,pw:[50,25,25]},
+{id:90,g:"-",date:"2026-07-04",t:"22:00",home:"Gan. R32-3",away:"Gan. R32-4",venue:"NRG Stadium, Houston",fh:"🏳",fa:"🏳",phase:"r16",sh:null,sa:null,pw:[50,25,25]},
+{id:91,g:"-",date:"2026-07-05",t:"18:00",home:"Gan. R32-5",away:"Gan. R32-6",venue:"MetLife Stadium, Nueva York/NJ",fh:"🏳",fa:"🏳",phase:"r16",sh:null,sa:null,pw:[50,25,25]},
+{id:92,g:"-",date:"2026-07-05",t:"22:00",home:"Gan. R32-7",away:"Gan. R32-8",venue:"Estadio Ciudad de México, CDMX",fh:"🏳",fa:"🏳",phase:"r16",sh:null,sa:null,pw:[50,25,25]},
+{id:93,g:"-",date:"2026-07-06",t:"18:00",home:"Gan. R32-9",away:"Gan. R32-10",venue:"AT&T Stadium, Dallas",fh:"🏳",fa:"🏳",phase:"r16",sh:null,sa:null,pw:[50,25,25]},
+{id:94,g:"-",date:"2026-07-06",t:"22:00",home:"Gan. R32-11",away:"Gan. R32-12",venue:"Lumen Field, Seattle",fh:"🏳",fa:"🏳",phase:"r16",sh:null,sa:null,pw:[50,25,25]},
+{id:95,g:"-",date:"2026-07-07",t:"18:00",home:"Gan. R32-13",away:"Gan. R32-14",venue:"Mercedes-Benz Stadium, Atlanta",fh:"🏳",fa:"🏳",phase:"r16",sh:null,sa:null,pw:[50,25,25]},
+{id:96,g:"-",date:"2026-07-07",t:"22:00",home:"Gan. R32-15",away:"Gan. R32-16",venue:"BC Place, Vancouver",fh:"🏳",fa:"🏳",phase:"r16",sh:null,sa:null,pw:[50,25,25]},
+
+// ── QUARTER FINALS ──
+{id:97,g:"-",date:"2026-07-09",t:"18:00",home:"Gan. Oct. 1",away:"Gan. Oct. 2",venue:"Gillette Stadium, Boston",fh:"🏳",fa:"🏳",phase:"r8",sh:null,sa:null,pw:[50,25,25]},
+{id:98,g:"-",date:"2026-07-10",t:"21:00",home:"Gan. Oct. 3",away:"Gan. Oct. 4",venue:"SoFi Stadium, Los Ángeles",fh:"🏳",fa:"🏳",phase:"r8",sh:null,sa:null,pw:[50,25,25]},
+{id:99,g:"-",date:"2026-07-11",t:"18:00",home:"Gan. Oct. 5",away:"Gan. Oct. 6",venue:"Hard Rock Stadium, Miami",fh:"🏳",fa:"🏳",phase:"r8",sh:null,sa:null,pw:[50,25,25]},
+{id:100,g:"-",date:"2026-07-11",t:"22:00",home:"Gan. Oct. 7",away:"Gan. Oct. 8",venue:"Arrowhead Stadium, Kansas City",fh:"🏳",fa:"🏳",phase:"r8",sh:null,sa:null,pw:[50,25,25]},
+
+// ── SEMIFINALS ──
+{id:101,g:"-",date:"2026-07-14",t:"21:00",home:"Gan. CF1",away:"Gan. CF2",venue:"AT&T Stadium, Dallas",fh:"🏳",fa:"🏳",phase:"semi",sh:null,sa:null,pw:[50,25,25]},
+{id:102,g:"-",date:"2026-07-15",t:"21:00",home:"Gan. CF3",away:"Gan. CF4",venue:"Mercedes-Benz Stadium, Atlanta",fh:"🏳",fa:"🏳",phase:"semi",sh:null,sa:null,pw:[50,25,25]},
+
+// ── 3RD PLACE ──
+{id:103,g:"-",date:"2026-07-18",t:"21:00",home:"Perdedor SF1",away:"Perdedor SF2",venue:"Hard Rock Stadium, Miami",fh:"🏳",fa:"🏳",phase:"third",sh:null,sa:null,pw:[50,25,25]},
+
+// ── FINAL ──
+{id:104,g:"-",date:"2026-07-19",t:"18:00",home:"Gan. SF1",away:"Gan. SF2",venue:"MetLife Stadium, East Rutherford, NJ",fh:"🏆",fa:"🏆",phase:"final",sh:null,sa:null,pw:[50,25,25]},
+];
+
+function getTeam(n){return TEAMS[n]||{flag:"🏳",group:"-",coach:"Por confirmar",coachAge:0,formation:"4-4-2",ranking:0,confederation:"-",players:[],stats:{played:0,won:0,drawn:0,lost:0,gf:0,ga:0},yellowCards:[],redCards:[],bio:"Equipo clasificado."}}
+
+function loadScores(){try{const s=localStorage.getItem('mw26');if(s){const d=JSON.parse(s);MATCHES.forEach(m=>{if(d[m.id]){m.sh=d[m.id].h;m.sa=d[m.id].a;}});}}catch(e){}}
+function saveScores(){try{const d={};MATCHES.forEach(m=>{if(m.sh!==null||m.sa!==null)d[m.id]={h:m.sh,a:m.sa};});localStorage.setItem('mw26',JSON.stringify(d));}catch(e){}}
+
+// Times in match data are ET (Eastern Time, UTC-4 during DST in June/July)
+// We convert to user's local timezone automatically using the browser API
+const USER_TZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+function matchLocalTime(date, timeET) {
+  // Build a Date object from ET time (UTC-4 during June/July DST)
+  const [y,mo,d] = date.split('-');
+  const [h,mi] = timeET.split(':');
+  // ET = UTC-4 in summer (EDT)
+  const utcMs = Date.UTC(parseInt(y), parseInt(mo)-1, parseInt(d), parseInt(h)+4, parseInt(mi));
+  const localDate = new Date(utcMs);
+  // Format in user's local timezone
+  const timeStr = localDate.toLocaleTimeString('es', {hour:'2-digit', minute:'2-digit', hour12:false, timeZone: USER_TZ});
+  return timeStr;
+}
+
+function fmtDate(d){const[y,mo,day]=d.split('-');const M=['ene','feb','mar','abr','may','jun','jul','ago'];return`${parseInt(day)} ${M[parseInt(mo)-1]}`;}
+
+function tzLabel() {
+  try {
+    // Show a short version of the timezone, e.g. "ECT", "GMT-5", etc.
+    const fmt = new Intl.DateTimeFormat('es', {timeZoneName:'short', timeZone: USER_TZ});
+    const parts = fmt.formatToParts(new Date());
+    const tz = parts.find(p => p.type === 'timeZoneName');
+    return tz ? tz.value : '';
+  } catch(e) { return ''; }
+}
+
+function getStandings(group){
+  const T={};
+  MATCHES.filter(m=>m.phase==='groups'&&m.g===group).forEach(m=>{
+    [m.home,m.away].forEach(n=>{if(!T[n])T[n]={n,p:0,pj:0,g:0,e:0,pp:0,gf:0,gc:0};});
+    if(m.sh!==null&&m.sa!==null){
+      const h=parseInt(m.sh),a=parseInt(m.sa);
+      T[m.home].pj++;T[m.away].pj++;
+      T[m.home].gf+=h;T[m.home].gc+=a;
+      T[m.away].gf+=a;T[m.away].gc+=h;
+      if(h>a){T[m.home].p+=3;T[m.home].g++;}
+      else if(h<a){T[m.away].p+=3;T[m.away].g++;}
+      else{T[m.home].p++;T[m.home].e++;T[m.away].p++;T[m.away].e++;}
+      T[m.home].pp=T[m.home].pj-T[m.home].g-T[m.home].e;
+      T[m.away].pp=T[m.away].pj-T[m.away].g-T[m.away].e;
+    }
+  });
+  return Object.values(T).sort((a,b)=>{
+    if(b.p!==a.p)return b.p-a.p;
+    const ga=a.gf-a.gc,gb=b.gf-b.gc;
+    if(gb!==ga)return gb-ga;
+    return b.gf-a.gf;
+  });
+}
+
+function renderStandings(group){
+  const rows=getStandings(group);
+  if(!rows.length)return'';
+  return`<table class="std-table"><thead><tr>
+    <th>#</th><th>Equipo</th>
+    <th title="Partidos jugados">PJ</th><th title="Ganados">G</th>
+    <th title="Empates">E</th><th title="Perdidos">P</th>
+    <th>GF</th><th>GC</th><th>DG</th><th>Pts</th>
+  </tr></thead><tbody>
+  ${rows.map((r,i)=>{
+    const gd=r.gf-r.gc,dot=i<2?'q1':i===2?'q2':'q3',tf=getTeam(r.n).flag;
+    return`<tr>
+      <td>${i+1}</td>
+      <td><span class="tdname" onclick="openTeam('${r.n.replace(/'/g,"\\'")}')"><span class="qual-dot ${dot}"></span><span style="font-size:13px;margin:0 3px">${tf}</span>${r.n}</span></td>
+      <td>${r.pj}</td><td>${r.g}</td><td>${r.e}</td><td>${r.pp}</td>
+      <td>${r.gf}</td><td>${r.gc}</td>
+      <td class="${gd>0?'gd-pos':gd<0?'gd-neg':''}">${gd>0?'+':''}${gd}</td>
+      <td><span class="pts">${r.p}</span></td>
+    </tr>`;
+  }).join('')}</tbody></table>`;
+}
+
+function playerChip(p){
+  return`<div class="pchip">
+    <div class="p-num">${p.n}</div>
+    <div class="p-name">${p.name}</div>
+    <div class="p-pos">${p.pos}</div>
+    <div class="player-tooltip">
+      <div class="pt-name">${p.full||p.name}</div>
+      <div class="pt-row"><span>Posición</span><span class="pt-val">${p.pos}</span></div>
+      <div class="pt-row"><span>Edad</span><span class="pt-val">${p.age} años</span></div>
+      <div class="pt-row"><span>Internacionales</span><span class="pt-val">${p.caps} caps</span></div>
+      <div class="pt-row"><span>Goles int.</span><span class="pt-val">${p.goals}</span></div>
+      <div class="pt-club">${p.club}</div>
+    </div>
+  </div>`;
+}
+
+function buildLineup(players){
+  if(!players||!players.length)return'<p style="color:var(--muted);font-size:12px">Sin datos</p>';
+  const byPos={GK:[],CB:[],RB:[],LB:[],WB:[],MF:[],FW:[]};
+  const posOrder=['GK','CB','RB','LB','WB','MF','FW'];
+  players.forEach(p=>{const k=byPos[p.pos]?p.pos:'MF';byPos[k].push(p);});
+  // Merge RB+LB+CB into one defense row
+  const def=[...byPos.CB,...byPos.RB,...byPos.LB,...byPos.WB];
+  const rows=[];
+  if(byPos.GK.length)rows.push(byPos.GK);
+  if(def.length)rows.push(def);
+  if(byPos.MF.length)rows.push(byPos.MF);
+  if(byPos.FW.length)rows.push(byPos.FW);
+  return rows.map(row=>`<div class="pos-row">${row.map(p=>playerChip(p)).join('')}</div>`).join('');
+}
+
+function renderGroups(){
+  const gf=document.getElementById('filterGroup').value;
+  const c=document.getElementById('groups-container');
+  const groups={};
+  MATCHES.filter(m=>m.phase==='groups'&&(gf==='all'||m.g===gf))
+    .forEach(m=>{if(!groups[m.g])groups[m.g]=[];groups[m.g].push(m);});
+  c.innerHTML=Object.keys(groups).sort().map(g=>`
+    <div class="gcard">
+      <div class="gcard-head">
+        <span class="gletter">Grupo ${g}</span>
+        <button class="gbtn" onclick="exportGroup('${g}')">⬇ .ics</button>
+      </div>
+      ${groups[g].map(m=>`
+        <div class="mrow">
+          <div class="thome" onclick="openTeam('${m.home.replace(/'/g,"\\'")}')"><span class="flag">${m.fh}</span><span class="tname">${m.home}</span></div>
+          <div class="mcenter">
+            <span class="mdate">${fmtDate(m.date)} · ${matchLocalTime(m.date,m.t)}</span>
+            <div class="score-wrap">
+              <div class="score-block">
+                <button class="sc-btn" onclick="adjScore(${m.id},'h',-1)">−</button>
+                <span class="sc-val${m.sh!==null?' has-score':''}" id="sh-${m.id}">${m.sh!==null?m.sh:'·'}</span>
+                <button class="sc-btn" onclick="adjScore(${m.id},'h',1)">+</button>
+              </div>
+              <span class="score-sep">—</span>
+              <div class="score-block">
+                <button class="sc-btn" onclick="adjScore(${m.id},'a',-1)">−</button>
+                <span class="sc-val${m.sa!==null?' has-score':''}" id="sa-${m.id}">${m.sa!==null?m.sa:'·'}</span>
+                <button class="sc-btn" onclick="adjScore(${m.id},'a',1)">+</button>
+              </div>
+            </div>
+            <span class="mvenue">${m.venue.split(',')[0]}</span>
+            <div class="prob-bar">
+              <div class="pb-h" style="width:${m.pw[0]}%"></div>
+              <div class="pb-d" style="width:${m.pw[1]}%"></div>
+              <div class="pb-a" style="width:${m.pw[2]}%"></div>
+            </div>
+            <div class="prob-labels"><span>${m.pw[0]}%</span><span>${m.pw[1]}%</span><span>${m.pw[2]}%</span></div>
+            <button class="calb" onclick="exportSingle(${m.id})">+ cal</button>
+          </div>
+          <div class="taway" onclick="openTeam('${m.away.replace(/'/g,"\\'")}')"><span class="tname">${m.away}</span><span class="flag">${m.fa}</span></div>
+        </div>
+      `).join('')}
+      <div class="std-wrap">${renderStandings(g)}</div>
+    </div>
+  `).join('');
+}
+
+function adjScore(id,side,delta){
+  const m=MATCHES.find(x=>x.id===id);if(!m)return;
+  const cur=side==='h'?m.sh:m.sa;
+  let nv;
+  if(cur===null&&delta>0)nv=0;
+  else if(cur===null&&delta<0)nv=null;
+  else nv=Math.max(0,cur+delta);
+  if(side==='h')m.sh=nv;else m.sa=nv;
+  // Update DOM directly without full re-render for snappiness
+  const el=document.getElementById((side==='h'?'sh-':'sa-')+id);
+  if(el){el.textContent=nv!==null?nv:'·';nv!==null?el.classList.add('has-score'):el.classList.remove('has-score');}
+  saveScores();
+  // Re-render only standings inside the group card
+  const grp=m.g;
+  document.querySelectorAll('.std-wrap').forEach(w=>{
+    const card=w.closest('.gcard');
+    if(card&&card.querySelector('.gletter')&&card.querySelector('.gletter').textContent.includes(grp)){
+      w.innerHTML=renderStandings(grp);
+    }
+  });
+}
+
+function renderKO(phase,cid){
+  const lbs={r32:'Dieciseisavo',r16:'Octavo de final',r8:'Cuarto de final',semi:'Semifinal',third:'3er Puesto',final:'Final'};
+  const ms=MATCHES.filter(m=>m.phase===phase);
+  document.getElementById(cid).innerHTML=ms.map((m,i)=>`
+    <div class="kocard">
+      <div class="kocard-head">
+        <span class="kolabel">${lbs[phase]} ${phase!=='final'?i+1:''}</span>
+        <button class="calb" style="margin:0" onclick="exportSingle(${m.id})">+ cal</button>
+      </div>
+      <div class="kocard-body">
+        <div class="ko-team" onclick="openTeam('${m.home.replace(/'/g,"\\'")}')"><span class="flag">${m.fh}</span><span class="ko-tname">${m.home}</span></div>
+        <div style="height:1px;background:var(--border);margin:2px 0"></div>
+        <div class="ko-team" onclick="openTeam('${m.away.replace(/'/g,"\\'")}')"><span class="flag">${m.fa}</span><span class="ko-tname">${m.away}</span></div>
+        <div class="ko-meta">
+          <span class="ko-date">${fmtDate(m.date)} · ${matchLocalTime(m.date,m.t)}</span>
+          <span class="ko-venue">${m.venue.split(',')[0]}</span>
+        </div>
+        <div class="prob-bar" style="margin-top:8px">
+          <div class="pb-h" style="width:${m.pw[0]}%"></div>
+          <div class="pb-d" style="width:${m.pw[1]}%"></div>
+          <div class="pb-a" style="width:${m.pw[2]}%"></div>
+        </div>
+        <div class="prob-labels"><span>${m.pw[0]}%</span><span>${m.pw[1]}%</span><span>${m.pw[2]}%</span></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderFinal(){
+  const m=MATCHES.find(x=>x.phase==='final');
+  document.getElementById('final-cont').innerHTML=`
+    <div class="final-card">
+      <div class="final-label">🏆 Gran Final · FIFA Mundial 2026</div>
+      <div class="final-trophy">🏆</div>
+      <div class="final-teams">${m.home} vs ${m.away}</div>
+      <div class="final-date">${fmtDate(m.date)}, 2026 · ${matchLocalTime(m.date,m.t)}</div>
+      <div class="final-venue">${m.venue}</div>
+      <div style="margin-top:14px"><button class="btn btn-gold" onclick="exportSingle(${m.id})">⬇ Agregar al calendario</button></div>
+    </div>`;
+}
+
+function showPhase(p,el){
+  document.querySelectorAll('.ntab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.phase').forEach(x=>x.classList.remove('active'));
+  document.getElementById('phase-'+p).classList.add('active');
+}
+function toggleInst(){document.getElementById('inst').classList.toggle('open');}
+
+function openTeam(name){
+  const t=getTeam(name);
+  const gd=t.stats.gf-t.stats.ga;
+  const yc=t.yellowCards.map(p=>`<span class="card-pill"><span class="yc"></span>${p}</span>`).join('')||'<span style="font-size:11px;color:var(--muted)">Ninguna</span>';
+  const rc=t.redCards.map(p=>`<span class="card-pill"><span class="rc"></span>${p}</span>`).join('')||'<span style="font-size:11px;color:var(--muted)">Ninguna</span>';
+  document.getElementById('teamModalContent').innerHTML=`
+    <div class="modal-head">
+      <span class="modal-title">${t.flag} ${name}</span>
+      <button class="modal-close" onclick="closeTeam()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="coach-row">
+        <div class="coach-avatar">🧑‍💼</div>
+        <div class="coach-info">
+          <h4>${t.coach}</h4>
+          <p>Seleccionador · ${t.coachAge} años · ${t.confederation}${t.ranking?` · FIFA #${t.ranking}`:''}</p>
+        </div>
+        <div style="margin-left:auto;text-align:right;flex-shrink:0">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--gold)">${t.formation}</div>
+          <div style="font-size:9px;color:var(--muted)">Formación</div>
+        </div>
+      </div>
+      <div class="bio-box">${t.bio}</div>
+      <div class="sec-title">Estadísticas en el torneo</div>
+      <div class="stats-grid">
+        <div class="stat-box"><span class="stat-val">${t.stats.played}</span><span class="stat-lbl">Jugados</span></div>
+        <div class="stat-box"><span class="stat-val" style="color:var(--green)">${t.stats.won}</span><span class="stat-lbl">Ganados</span></div>
+        <div class="stat-box"><span class="stat-val" style="color:var(--muted)">${t.stats.drawn}</span><span class="stat-lbl">Empates</span></div>
+        <div class="stat-box"><span class="stat-val" style="color:#e06060">${t.stats.lost}</span><span class="stat-lbl">Perdidos</span></div>
+        <div class="stat-box"><span class="stat-val">${t.stats.gf}</span><span class="stat-lbl">Goles a favor</span></div>
+        <div class="stat-box"><span class="stat-val" style="color:${gd>=0?'var(--gold)':'#e06060'}">${gd>=0?'+':''}${gd}</span><span class="stat-lbl">Dif. goles</span></div>
+      </div>
+      <div class="sec-title">Alineación titular — pasa el mouse sobre cada jugador</div>
+      <div class="lineup-pitch">
+        <svg class="pitch-lines" viewBox="0 0 300 200" preserveAspectRatio="none">
+          <rect x="0" y="0" width="300" height="200" fill="none" stroke="white" stroke-width="2"/>
+          <line x1="150" y1="0" x2="150" y2="200" stroke="white" stroke-width="1"/>
+          <circle cx="150" cy="100" r="30" fill="none" stroke="white" stroke-width="1"/>
+          <rect x="0" y="60" width="50" height="80" fill="none" stroke="white" stroke-width="1"/>
+          <rect x="250" y="60" width="50" height="80" fill="none" stroke="white" stroke-width="1"/>
+        </svg>
+        ${buildLineup(t.players)}
+      </div>
+      <div class="sec-title">Tarjetas</div>
+      <div style="margin-bottom:5px;font-size:10px;color:var(--muted)">Amarillas</div>
+      <div class="cards-row">${yc}</div>
+      <div style="margin-top:10px;margin-bottom:5px;font-size:10px;color:var(--muted)">Rojas</div>
+      <div class="cards-row">${rc}</div>
+      <div style="margin-top:12px;text-align:right;font-size:10px;color:var(--muted)">Grupo ${t.group} · ${t.confederation}</div>
+    </div>`;
+  document.getElementById('teamModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeTeam(){document.getElementById('teamModal').classList.remove('open');document.body.style.overflow='';}
+document.getElementById('teamModal').addEventListener('click',function(e){if(e.target===this)closeTeam();});
+
+function toICS(list){
+  let s='BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Mundial2026//Fixture//ES\r\nCALSCALE:GREGORIAN\r\nX-WR-CALNAME:FIFA Mundial 2026\r\n';
+  list.forEach(m=>{
+    const[y,mo,d]=m.date.split('-');const[h,mi]=m.t.split(':');
+    const st=`${y}${mo}${d}T${h}${mi}00`;
+    const eh=String(parseInt(h)+2).padStart(2,'0');
+    const en=`${y}${mo}${d}T${eh}${mi}00`;
+    const ph={groups:'Fase de Grupos',r32:'Octavos',r16:'Cuartos',semi:'Semifinal',final:'Final'};
+    s+=`BEGIN:VEVENT\r\nUID:fifa2026-${m.id}@mundial\r\nDTSTART:${st}\r\nDTEND:${en}\r\nSUMMARY:⚽ ${m.home} vs ${m.away}\r\nLOCATION:${m.venue}\r\nDESCRIPTION:${ph[m.phase]} — FIFA Mundial 2026\\n${m.venue}\r\nEND:VEVENT\r\n`;
+  });
+  return s+'END:VCALENDAR';
+}
+function dlICS(c,n){
+  const b=new Blob([c],{type:'text/calendar;charset=utf-8'});
+  const u=URL.createObjectURL(b);const a=document.createElement('a');
+  a.href=u;a.download=n;document.body.appendChild(a);a.click();
+  document.body.removeChild(a);URL.revokeObjectURL(u);
+  showToast('✓ '+n);
+}
+function exportAll(){dlICS(toICS(MATCHES),'mundial2026-completo.ics');}
+function exportGroup(g){dlICS(toICS(MATCHES.filter(m=>m.g===g)),`mundial2026-grupo${g}.ics`);}
+function exportSingle(id){const m=MATCHES.find(x=>x.id===id);if(m)dlICS(toICS([m]),`mundial2026-partido${id}.ics`);}
+function exportPhase(p){
+  if(p==='ko')dlICS(toICS(MATCHES.filter(m=>m.phase!=='groups')),'mundial2026-eliminatorias.ics');
+  else dlICS(toICS(MATCHES.filter(m=>m.phase==='groups')),'mundial2026-grupos.ics');
+}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600);}
+
+function updateCD(){
+  const tgt=new Date('2026-06-11T17:00:00-06:00'),now=new Date(),diff=tgt-now;
+  if(diff<=0){document.getElementById('countdown').innerHTML='<div class="cdu"><strong>🔴</strong><span>live</span></div>';return;}
+  document.getElementById('cd-d').textContent=String(Math.floor(diff/86400000)).padStart(2,'0');
+  document.getElementById('cd-h').textContent=String(Math.floor((diff%86400000)/3600000)).padStart(2,'0');
+  document.getElementById('cd-m').textContent=String(Math.floor((diff%3600000)/60000)).padStart(2,'0');
+  document.getElementById('cd-s').textContent=String(Math.floor((diff%60000)/1000)).padStart(2,'0');
+}
+
+loadScores();
+// Show user timezone
+const tzEl = document.getElementById('tz-badge');
+if(tzEl) tzEl.textContent = USER_TZ.replace('_',' ') + ' · ' + tzLabel();
+renderGroups();
+renderKO('r32','r32-cont');
+renderKO('r16','r16-cont');
+renderKO('r8','r8-cont');
+renderKO('semi','semi-cont');
+renderFinal();
+updateCD();
+setInterval(updateCD,1000);
+</script>
+</body>
+</html>

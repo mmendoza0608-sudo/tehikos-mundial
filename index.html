@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TEHIKOS · Mundial 2026</title>
+<meta name="theme-color" content="#A5C90E">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#141820;color:#E8ECF4;min-height:100vh;display:flex;flex-direction:column}
+.hero{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 24px;text-align:center}
+.logo-wrap{margin-bottom:32px}
+.logo-name{font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:.16em;color:#fff;line-height:1;margin-top:16px}
+.logo-tagline{font-family:'JetBrains Mono',monospace;font-size:11px;color:#758AA9;letter-spacing:.12em;text-transform:uppercase;margin-top:6px}
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,6vw,56px);color:#fff;letter-spacing:.04em;margin-bottom:8px}
+h1 span{color:#A5C90E}
+.sub{font-size:14px;color:#758AA9;margin-bottom:48px;font-family:'JetBrains Mono',monospace;letter-spacing:.06em}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:700px;width:100%}
+.card{background:#1A2030;border:1px solid rgba(165,201,14,.18);border-radius:18px;padding:28px 24px;text-decoration:none;color:inherit;transition:all .22s;display:flex;flex-direction:column;gap:10px}
+.card:hover{border-color:#A5C90E;background:#202840;transform:translateY(-3px);box-shadow:0 12px 32px rgba(165,201,14,.1)}
+.card-icon{font-size:40px;line-height:1}
+.card-title{font-family:'Bebas Neue',sans-serif;font-size:26px;color:#fff;letter-spacing:.05em}
+.card-desc{font-size:13px;color:#758AA9;line-height:1.6}
+.card-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(165,201,14,.12);border:1px solid rgba(165,201,14,.25);border-radius:8px;padding:4px 10px;font-size:11px;color:#A5C90E;font-family:'JetBrains Mono',monospace;margin-top:4px;width:fit-content}
+.card-badge.blue{background:rgba(117,138,169,.1);border-color:rgba(117,138,169,.25);color:#758AA9}
+.footer{padding:20px 24px;text-align:center;font-size:11px;color:#384368;font-family:'JetBrains Mono',monospace;border-top:1px solid rgba(165,201,14,.08)}
+@media(max-width:520px){.cards{grid-template-columns:1fr}.logo-name{font-size:36px}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="logo-wrap">
+    <svg width="120" height="60" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="8" cy="50" r="8" fill="#A5C90E"/>
+      <rect x="28" y="20" width="68" height="14" rx="7" fill="#A5C90E"/>
+      <rect x="28" y="20" width="14" height="60" fill="#A5C90E"/>
+      <rect x="28" y="66" width="56" height="14" rx="7" fill="#A5C90E"/>
+      <circle cx="90" cy="73" r="10" fill="#A5C90E"/>
+      <circle cx="112" cy="27" r="10" fill="#758AA9"/>
+      <rect x="106" y="20" width="68" height="14" rx="7" fill="#758AA9"/>
+      <rect x="160" y="20" width="14" height="60" fill="#758AA9"/>
+      <rect x="118" y="66" width="56" height="14" rx="7" fill="#758AA9"/>
+      <circle cx="192" cy="50" r="8" fill="#758AA9"/>
+    </svg>
+    <div class="logo-name">TEHIKOS</div>
+    <div class="logo-tagline">FIFA Mundial 2026</div>
+  </div>
+
+  <h1>⚽ MUNDIAL <span>2026</span></h1>
+  <div class="sub">USA · México · Canadá · 11 Jun – 19 Jul 2026</div>
+
+  <div class="cards">
+    <a href="quiniela2026.html" class="card">
+      <div class="card-icon">🏆</div>
+      <div class="card-title">Quiniela</div>
+      <div class="card-desc">Predice los resultados de cada partido. Ranking en tiempo real entre todos los participantes.</div>
+      <div class="card-badge">⚽ Regístrate y participa</div>
+    </a>
+    <a href="mundial2026.html" class="card">
+      <div class="card-icon">📋</div>
+      <div class="card-title">Fixture</div>
+      <div class="card-desc">Calendario completo con los 72 partidos de la fase de grupos, tabla de posiciones y fichas de selecciones.</div>
+      <div class="card-badge blue">📅 Fixture oficial FIFA</div>
+    </a>
+  </div>
+</div>
+
+<div class="footer">
+  TEHIKOS © 2026 · Relaciones que transforman negocios
+</div>
+</body>
+</html>
