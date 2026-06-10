@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TEHIKOS · Reglas del Torneo</title>
+<meta name="theme-color" content="#A5C90E">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#0E1118;color:#E8ECF4;min-height:100vh;display:flex;flex-direction:column}
+.accent-bar{height:4px;background:linear-gradient(90deg,#A5C90E 0%,#C5F122 50%,#758AA9 100%)}
+.header{background:#141820;border-bottom:1px solid rgba(165,201,14,.14);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:56px}
+.header-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit}
+.header-logo span{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.14em;color:#fff}
+.back-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:transparent;border:1px solid rgba(165,201,14,.2);border-radius:10px;color:#758AA9;font-family:'JetBrains Mono',monospace;font-size:12px;text-decoration:none;transition:all .2s}
+.back-btn:hover{border-color:#A5C90E;color:#A5C90E}
+.main{max-width:760px;margin:0 auto;padding:40px 24px;flex:1}
+.page-title{font-family:'Bebas Neue',sans-serif;font-size:42px;color:#fff;letter-spacing:.06em;margin-bottom:4px}
+.page-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:#758AA9;letter-spacing:.1em;text-transform:uppercase;margin-bottom:32px}
+.section{background:#141820;border:1px solid rgba(165,201,14,.13);border-radius:16px;padding:24px;margin-bottom:20px;position:relative;overflow:hidden}
+.section::before{content:'';position:absolute;top:0;left:0;width:3px;bottom:0;background:#A5C90E}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;letter-spacing:.06em;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.section-icon{font-size:20px}
+p{font-size:13px;color:#9AABB8;line-height:1.75;margin-bottom:10px}
+p:last-child{margin-bottom:0}
+.pts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.pts-box{border-radius:12px;padding:16px;text-align:center}
+.pts-box.gold{background:rgba(165,201,14,.1);border:1px solid rgba(165,201,14,.25)}
+.pts-box.silver{background:rgba(117,138,169,.1);border:1px solid rgba(117,138,169,.22)}
+.pts-box.zero{background:rgba(56,67,104,.15);border:1px solid rgba(56,67,104,.3)}
+.pts-val{font-family:'Bebas Neue',sans-serif;font-size:36px;line-height:1;margin-bottom:4px}
+.pts-gold{color:#A5C90E}.pts-slate{color:#758AA9}.pts-dark{color:#4E5F7A}
+.pts-label{font-size:11px;font-family:'JetBrains Mono',monospace;letter-spacing:.06em}
+.pts-box.gold .pts-label{color:#A5C90E}
+.pts-box.silver .pts-label{color:#758AA9}
+.pts-box.zero .pts-label{color:#4E5F7A}
+.pts-desc{font-size:12px;color:#758AA9;margin-top:6px;line-height:1.5}
+ol,ul{padding-left:18px}
+li{font-size:13px;color:#9AABB8;line-height:1.75;margin-bottom:4px}
+li b{color:#E8ECF4}
+.highlight-box{background:rgba(165,201,14,.07);border:1px solid rgba(165,201,14,.2);border-radius:10px;padding:14px 16px;margin-top:14px}
+.highlight-box p{color:#A5C90E;font-size:12px;margin:0}
+.tag{display:inline-block;background:rgba(165,201,14,.1);border:1px solid rgba(165,201,14,.25);color:#A5C90E;font-family:'JetBrains Mono',monospace;font-size:10px;padding:2px 8px;border-radius:5px;margin-right:4px}
+.tag.slate{background:rgba(117,138,169,.1);border-color:rgba(117,138,169,.25);color:#758AA9}
+.footer{padding:18px 24px;text-align:center;font-size:11px;color:#2E3A55;font-family:'JetBrains Mono',monospace;border-top:1px solid rgba(165,201,14,.07)}
+</style>
+</head>
+<body>
+<div class="accent-bar"></div>
+<div class="header">
+  <a href="index_tehikos.html" class="header-logo">
+    <svg width="28" height="28" viewBox="0 0 240 120" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="18" cy="60" r="11" fill="#A5C90E"/>
+      <rect x="32" y="22" width="80" height="18" rx="9" fill="#A5C90E"/>
+      <rect x="32" y="22" width="18" height="76" fill="#A5C90E"/>
+      <rect x="32" y="80" width="70" height="18" rx="9" fill="#A5C90E"/>
+      <circle cx="102" cy="89" r="12" fill="#A5C90E"/>
+      <circle cx="138" cy="31" r="11" fill="#758AA9"/>
+      <rect x="128" y="22" width="82" height="18" rx="9" fill="#758AA9"/>
+      <rect x="192" y="22" width="18" height="76" fill="#758AA9"/>
+      <rect x="138" y="80" width="72" height="18" rx="9" fill="#758AA9"/>
+      <circle cx="222" cy="60" r="11" fill="#758AA9"/>
+    </svg>
+    <span>TEHIKOS</span>
+  </a>
+  <a href="index_tehikos.html" class="back-btn">← Inicio</a>
+</div>
+
+<main class="main">
+  <div class="page-title">Reglas del Torneo</div>
+  <div class="page-sub">TEHIKOS · FIFA Mundial 2026</div>
+
+  <!-- SISTEMA DE PUNTOS -->
+  <div class="section">
+    <div class="section-title"><span class="section-icon">🎯</span> Sistema de puntos</div>
+    <p>Cada participante predice el resultado de los partidos <b>antes de que comiencen</b>. Una vez iniciado el partido, las predicciones se cierran automáticamente.</p>
+    <div class="pts-grid">
+      <div class="pts-box gold">
+        <div class="pts-val pts-gold">+3</div>
+        <div class="pts-label">Marcador exacto</div>
+        <div class="pts-desc">Adivinaste los goles exactos de ambos equipos</div>
+      </div>
+      <div class="pts-box silver">
+        <div class="pts-val pts-slate">+1</div>
+        <div class="pts-label">Ganador correcto</div>
+        <div class="pts-desc">Acertaste quién gana o que hubo empate</div>
+      </div>
+      <div class="pts-box zero">
+        <div class="pts-val pts-dark">0</div>
+        <div class="pts-label">Sin puntos</div>
+        <div class="pts-desc">El resultado fue diferente a tu predicción</div>
+      </div>
+    </div>
+    <div class="highlight-box"><p>🏆 El jugador con más puntos al finalizar el torneo gana. En caso de empate, gana quien tuvo más marcadores exactos (+3 pts).</p></div>
+  </div>
+
+  <!-- PARTICIPACIÓN -->
+  <div class="section">
+    <div class="section-title"><span class="section-icon">👤</span> Registro y participación</div>
+    <ol>
+      <li>Regístrate con tu nombre y contraseña en la sección de <b>Quiniela</b>.</li>
+      <li>Una vez registrado, puedes ingresar predicciones para todos los partidos disponibles.</li>
+      <li>Las predicciones se pueden modificar hasta el momento en que inicia cada partido.</li>
+      <li>Partidos que ya comenzaron aparecen como <b>cerrados</b> y no permiten cambios.</li>
+      <li>Tu puntaje se actualiza en tiempo real en el ranking del grupo.</li>
+    </ol>
+  </div>
+
+  <!-- PREDICCIONES -->
+  <div class="section">
+    <div class="section-title"><span class="section-icon">⚽</span> Cómo predecir</div>
+    <ol>
+      <li>Ingresa los goles que crees que anotará cada equipo en el campo de predicción.</li>
+      <li>Las predicciones son para el resultado al final del <b>tiempo reglamentario</b> (90 minutos).</li>
+      <li>En fases eliminatorias, si hay prórroga o penales, el resultado que cuenta es el final del partido (incluida prórroga/penales).</li>
+      <li>Si no ingresas predicción para un partido, se registran <b>0 puntos</b> automáticamente.</li>
+    </ol>
+    <div class="highlight-box"><p>💡 Consejo: predice los partidos con anticipación. Muchos partidos inician mientras se están jugando otros — no pierdas la ventana de predicción.</p></div>
+  </div>
+
+  <!-- RANKING -->
+  <div class="section">
+    <div class="section-title"><span class="section-icon">🏅</span> Ranking</div>
+    <p>El ranking es visible para todos los participantes en la pestaña <b>Ranking</b> de la quiniela. Se actualiza automáticamente cada vez que se ingresan resultados.</p>
+    <ul>
+      <li><b>Posición</b>: ordenado por puntos totales, de mayor a menor.</li>
+      <li><b>Desempate 1</b>: mayor número de marcadores exactos (+3 pts).</li>
+      <li><b>Desempate 2</b>: mayor número de resultados correctos (+1 pt).</li>
+      <li>Tu posición aparece resaltada en el ranking.</li>
+    </ul>
+  </div>
+
+  <!-- FASES DEL TORNEO -->
+  <div class="section">
+    <div class="section-title"><span class="section-icon">📅</span> Fases del torneo</div>
+    <p>El Mundial 2026 tiene un formato ampliado con <b>48 selecciones</b> y las siguientes fases:</p>
+    <ul>
+      <li><span class="tag">Grupos</span> 12 grupos de 4 equipos · 72 partidos · 11–27 jun</li>
+      <li><span class="tag">16avos</span> Ronda de 32 · 16 partidos · 28 jun–3 jul</li>
+      <li><span class="tag">Octavos</span> 8 partidos · 4–7 jul</li>
+      <li><span class="tag">Cuartos</span> 4 partidos · 9–11 jul</li>
+      <li><span class="tag">Semis</span> 2 partidos · 14–15 jul</li>
+      <li><span class="tag slate">3er lugar</span> 18 jul</li>
+      <li><span class="tag">Final</span> MetLife Stadium · 19 jul</li>
+    </ul>
+    <p style="margin-top:10px">Se podrán predecir partidos de <b>todas las fases</b>, incluyendo eliminatorias.</p>
+  </div>
+
+  <!-- FAIR PLAY -->
+  <div class="section">
+    <div class="section-title"><span class="section-icon">🤝</span> Fair play</div>
+    <ul>
+      <li>Un usuario por persona. No se permiten cuentas múltiples.</li>
+      <li>No se pueden modificar predicciones una vez iniciado el partido.</li>
+      <li>Los resultados se ingresan manualmente por el administrador del grupo.</li>
+      <li>Este torneo es de carácter <b>amistoso</b> entre el equipo TEHIKOS.</li>
+    </ul>
+    <div class="highlight-box"><p>😄 El objetivo es pasarla bien y añadir emoción a cada partido. ¡Que gane el mejor!</p></div>
+  </div>
+</main>
+
+<div class="footer">TEHIKOS © 2026 · Relaciones que transforman negocios</div>
+</body>
+</html>
