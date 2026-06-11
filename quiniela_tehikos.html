@@ -213,7 +213,10 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);min
     <div class="card">
       <div class="card-head">
         <span class="card-title">Tabla General</span>
-        <span id="rank-ts" style="font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace"></span>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span id="rank-ts" style="font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace"></span>
+          <button id="btn-refresh" class="btn btn-ghost btn-sm" onclick="doRefresh()" title="Actualizar ranking" style="padding:5px 10px;font-size:13px">↻</button>
+        </div>
       </div>
       <div style="overflow-x:auto">
         <table class="rank-table">
@@ -858,6 +861,20 @@ function toast(msg,type='ok'){
 }
 
 // ─────────────────────────────────────────────────────────────
+// REFRESH
+// ─────────────────────────────────────────────────────────────
+async function doRefresh(){
+  const btn=document.getElementById('btn-refresh');
+  if(btn){btn.textContent='↻';btn.disabled=true;}
+  await Promise.all([dbGetUsers(),dbGetResults(),dbGetAllPreds()]);
+  if(SESSION&&!SESSION.isAdmin)await dbGetMyPreds();
+  renderRanking();
+  if(SESSION)renderPredictions();
+  if(btn){btn.disabled=false;}
+  toast('Ranking actualizado ✓');
+}
+
+// ─────────────────────────────────────────────────────────────
 // INIT
 // ─────────────────────────────────────────────────────────────
 (async()=>{
@@ -869,13 +886,14 @@ function toast(msg,type='ok'){
   if(SESSION)renderPredictions();
   // Countdown
   setInterval(tickCD,1000);
-  // Auto-refresh ranking every 30s
+  // Auto-refresh every 10s (all tabs)
   setInterval(async()=>{
-    if(document.getElementById('page-ranking').classList.contains('active')){
-      await Promise.all([dbGetUsers(),dbGetResults(),dbGetAllPreds()]);
-      renderRanking();
-    }
-  },30000);
+    await Promise.all([dbGetUsers(),dbGetResults(),dbGetAllPreds()]);
+    if(SESSION&&!SESSION.isAdmin)await dbGetMyPreds();
+    renderRanking();
+    if(document.getElementById('page-predict').classList.contains('active')&&SESSION)renderPredictions();
+    if(document.getElementById('page-admin').classList.contains('active')&&SESSION?.isAdmin)renderAdmin();
+  },10000);
 })();
 </script>
 </body>
