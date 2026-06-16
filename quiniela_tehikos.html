@@ -647,9 +647,61 @@ function renderPredictions(){
     el.innerHTML=`<div class="empty"><div class="ei">🔒</div><h3>Inicia sesión para predecir</h3><p>Regístrate o ingresa para participar</p><br><button class="btn btn-primary" onclick="showAuth('login')">Ingresar</button></div>`;
     return;
   }
+  // ── Partidos de hoy ──
+  const todayStr=new Date().toLocaleDateString('en-CA',{timeZone:'America/Guayaquil'});
+  const todayMatches=MATCHES.filter(m=>m.date===todayStr);
+  let html='';
+  if(todayMatches.length>0){
+    html+=`<div class="card" style="margin-bottom:16px;border:1px solid var(--green);box-shadow:0 0 12px rgba(165,201,14,.15)">
+      <div class="card-head"><span class="card-title" style="color:var(--green)">⚽ Partidos de Hoy</span><span style="font-size:11px;color:var(--muted)">${todayStr}</span></div>
+      <div class="card-body" style="padding:12px;display:flex;flex-direction:column;gap:10px">`;
+    for(const m of todayMatches){
+      const locked=isLocked(m.date,m.t);
+      const result=RESULTS[m.id];
+      const myP=MY_PREDS[m.id];
+      const status=locked?(result?'played':'locked'):'open';
+      const sbCls={open:'sb-open',locked:'sb-locked',played:'sb-played'}[status];
+      const sbLbl={open:'Abierto',locked:'Cerrado',played:'Resultado'}[status];
+      const hVal=myP!==undefined?myP.h:'·',aVal=myP!==undefined?myP.a:'·';
+      let centerHtml='';
+      if(!locked){
+        centerHtml=`<div class="pred-row">
+          <button class="pb" data-side="h" data-dir="-1" onclick="adjPred(${m.id},'h',-1)" ${myP!==undefined&&myP.h<=0?'disabled':''}>−</button>
+          <span class="pv ${myP!==undefined?'set':''}" id="ph-${m.id}">${hVal}</span>
+          <button class="pb" data-side="h" data-dir="1" onclick="adjPred(${m.id},'h',1)">+</button>
+          <span class="p-sep">—</span>
+          <button class="pb" data-side="a" data-dir="-1" onclick="adjPred(${m.id},'a',-1)" ${myP!==undefined&&myP.a<=0?'disabled':''}>−</button>
+          <span class="pv ${myP!==undefined?'set':''}" id="pa-${m.id}">${aVal}</span>
+          <button class="pb" data-side="a" data-dir="1" onclick="adjPred(${m.id},'a',1)">+</button>
+        </div><span class="p-saved" id="ps-${m.id}">✓ guardado</span>`;
+      }else if(result){
+        centerHtml=`<div class="real-sc">${result.h} — ${result.a}</div><div class="real-sc-lbl">Resultado</div>
+          ${myP!==undefined?`<div class="my-pred-static"><div class="my-pred-lbl">Tu pronóstico</div><div class="my-pred-val">${myP.h}–${myP.a}</div></div>`:''}`;
+      }else{
+        centerHtml=myP!==undefined
+          ?`<div class="my-pred-static"><div class="my-pred-lbl">Tu pronóstico</div><div class="my-pred-val">${myP.h}–${myP.a}</div></div>`
+          :`<div style="font-size:11px;color:var(--subtle);font-family:'JetBrains Mono',monospace">Sin pronóstico</div>`;
+      }
+      html+=`<div class="match-card ${status}" style="margin:0">
+        <div class="match-card-hd">
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <span class="match-dt">${localDateFull(m.date,m.t)}</span>
+            <span class="match-venue-s">${m.venue}</span>
+          </div>
+          <span class="sbadge ${sbCls}">${sbLbl}</span>
+        </div>
+        <div class="match-body">
+          <div class="t-side"><span class="t-flag">${m.fh}</span><span class="t-name">${m.home}</span></div>
+          <div class="pred-ctr">${centerHtml}</div>
+          <div class="t-side away"><span class="t-name">${m.away}</span><span class="t-flag">${m.fa}</span></div>
+        </div>
+      </div>`;
+    }
+    html+=`</div></div>`;
+  }
+
   const groups={};
   MATCHES.forEach(m=>{if(!groups[m.g])groups[m.g]=[];groups[m.g].push(m);});
-  let html='';
   for(const[g,matches]of Object.entries(groups)){
     html+=`<div class="group-section"><div class="group-hdr">Grupo ${g} <small>${matches.length} partidos</small></div>`;
     for(const m of matches){
