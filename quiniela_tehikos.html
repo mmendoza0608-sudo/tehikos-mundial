@@ -775,6 +775,9 @@ function renderPredictions(){
 
 async function adjPred(matchId,side,delta){
   if(!SESSION)return;
+  // Revalidar lock en tiempo real (no confiar en el estado ya pintado en el DOM)
+  const m=MATCHES.find(x=>x.id===matchId);
+  if(m&&isLocked(m.date,m.t)){toast('Este partido ya inició, no se puede modificar','err');renderPredictions();return;}
   const cur=MY_PREDS[matchId]||{h:null,a:null};
   if(cur.h===null)cur.h=0;
   if(cur.a===null)cur.a=0;
@@ -928,6 +931,12 @@ function toast(msg,type='ok'){
       renderRanking();
     }
   },30000);
+  // Auto-refresh predicciones every 15s (revalida locks de partidos en curso)
+  setInterval(()=>{
+    if(document.getElementById('page-predict').classList.contains('active')){
+      renderPredictions();
+    }
+  },15000);
 })();
 </script>
 </body>
