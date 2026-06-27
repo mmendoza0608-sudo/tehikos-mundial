@@ -442,7 +442,7 @@ async function dbGetMyPreds(){
   (data||[]).forEach(p=>MY_PREDS[p.match_id]={h:p.score_h,a:p.score_a});
 }
 async function dbGetAllPreds(){
-  const {data}=await sb.from('predictions').select('match_id,score_h,score_a,users(id,name)');
+  const {data}=await sb.from('predictions').select('match_id,score_h,score_a,users(id,name)').range(0,4999);
   ALL_PREDS={};
   (data||[]).forEach(p=>{
     if(!ALL_PREDS[p.match_id])ALL_PREDS[p.match_id]=[];
