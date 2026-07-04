@@ -421,6 +421,15 @@ const MATCHES=[
   {id:86,g:"R32",date:"2026-07-03",t:"18:00",home:"Argentina",away:"Cabo Verde",fh:"🇦🇷",fa:"🇨🇻",venue:"Miami"},
   {id:87,g:"R32",date:"2026-07-03",t:"21:30",home:"Colombia",away:"Ghana",fh:"🇨🇴",fa:"🇬🇭",venue:"Kansas City"},
   {id:88,g:"R32",date:"2026-07-03",t:"14:00",home:"Australia",away:"Egipto",fh:"🇦🇺",fa:"🇪🇬",venue:"Dallas"},
+  {id:89,g:"R16",date:"2026-07-04",t:"17:00",home:"Paraguay",away:"Francia",fh:"🇵🇾",fa:"🇫🇷",venue:"Filadelfia"},
+  {id:90,g:"R16",date:"2026-07-04",t:"12:00",home:"Canadá",away:"Marruecos",fh:"🇨🇦",fa:"🇲🇦",venue:"Houston"},
+  {id:91,g:"R16",date:"2026-07-05",t:"18:00",home:"Brasil",away:"Noruega",fh:"🇧🇷",fa:"🇳🇴",venue:"Nueva York/NJ"},
+  {id:92,g:"R16",date:"2026-07-05",t:"14:00",home:"México",away:"Inglaterra",fh:"🇲🇽",fa:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",venue:"Ciudad de México"},
+  {id:93,g:"R16",date:"2026-07-06",t:"17:00",home:"Portugal",away:"España",fh:"🇵🇹",fa:"🇪🇸",venue:"Dallas"},
+  {id:94,g:"R16",date:"2026-07-06",t:"14:00",home:"EE.UU.",away:"Bélgica",fh:"🇺🇸",fa:"🇧🇪",venue:"Seattle"},
+  {id:95,g:"R16",date:"2026-07-07",t:"13:00",home:"Argentina",away:"Egipto",fh:"🇦🇷",fa:"🇪🇬",venue:"Atlanta"},
+  {id:96,g:"R16",date:"2026-07-07",t:"19:00",home:"Suiza",away:"Colombia",fh:"🇨🇭",fa:"🇨🇴",venue:"Vancouver"},
+
 ];
 
 // ─────────────────────────────────────────────────────────────
@@ -718,10 +727,14 @@ function renderPredictions(){
 
   const groups={};
   MATCHES.forEach(m=>{if(!groups[m.g])groups[m.g]=[];groups[m.g].push(m);});
-  const groupOrder=Object.keys(groups).sort((a,b)=>(a==='R32'?-1:b==='R32'?1:0));
+  const phaseOrder={'R16':0,'R32':1};
+  const groupOrder=Object.keys(groups).sort((a,b)=>{
+    const pa=phaseOrder[a]??2,pb=phaseOrder[b]??2;
+    return pa!==pb?pa-pb:a.localeCompare(b);
+  });
   for(const g of groupOrder){
     const matches=groups[g];
-    const gLabel=g==='R32'?'Dieciseisavos de Final':`Grupo ${g}`;
+    const gLabel=g==='R16'?'Octavos de Final':g==='R32'?'Dieciseisavos de Final':`Grupo ${g}`;
     html+=`<div class="group-section"><div class="group-hdr">${gLabel} <small>${matches.length} partidos</small></div>`;
     for(const m of matches){
       const locked=isLocked(m.date,m.t);
@@ -840,7 +853,7 @@ function renderAdmin(){
     const r=RESULTS[m.id]||{h:'',a:''};
     return`<div class="admin-row">
       <div class="admin-teams">${m.fh} ${m.home} vs ${m.away} ${m.fa}
-        <div style="font-size:10px;color:var(--muted);margin-top:2px">${m.g==='R32'?'Dieciseisavos':'Grupo '+m.g} · ${localDateFull(m.date,m.t)}</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:2px">${m.g==='R16'?'Octavos':m.g==='R32'?'Dieciseisavos':'Grupo '+m.g} · ${localDateFull(m.date,m.t)}</div>
       </div>
       <div class="admin-inputs">
         <input class="ain" type="number" min="0" max="20" value="${r.h}" id="ar-h-${m.id}" placeholder="—" onkeydown="if(event.key==='Enter')saveResult(${m.id})">
