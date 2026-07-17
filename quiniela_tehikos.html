@@ -433,9 +433,8 @@ const MATCHES=[
   {id:98,g:"R8",date:"2026-07-10",t:"15:00",home:"España",away:"Bélgica",fh:"🇪🇸",fa:"🇧🇪",venue:"Los Ángeles"},
   {id:99,g:"R8",date:"2026-07-11",t:"17:00",home:"Noruega",away:"Inglaterra",fh:"🇳🇴",fa:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",venue:"Miami"},
   {id:100,g:"R8",date:"2026-07-11",t:"21:00",home:"Argentina",away:"Suiza",fh:"🇦🇷",fa:"🇨🇭",venue:"Kansas City"},
-  {id:101,g:"SF",date:"2026-07-14",t:"15:00",home:"Francia",away:"España",fh:"🇫🇷",fa:"🇪🇸",venue:"Dallas"},
-  {id:102,g:"SF",date:"2026-07-15",t:"15:00",home:"Inglaterra",away:"Argentina",fh:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",fa:"🇦🇷",venue:"Atlanta"},
-
+  {id:101,g:"3P",date:"2026-07-18",t:"17:00",home:"Francia",away:"Inglaterra",fh:"🇫🇷",fa:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",venue:"Miami"},
+  {id:102,g:"FIN",date:"2026-07-19",t:"15:00",home:"España",away:"Argentina",fh:"🇪🇸",fa:"🇦🇷",venue:"Nueva York/NJ"},
 
 ];
 
@@ -734,14 +733,14 @@ function renderPredictions(){
 
   const groups={};
   MATCHES.forEach(m=>{if(!groups[m.g])groups[m.g]=[];groups[m.g].push(m);});
-  const phaseOrder={'SF':0,'R8':1,'R16':2,'R32':3};
+  const phaseOrder={'FIN':0,'3P':1,'R8':2,'R16':3,'R32':4};
   const groupOrder=Object.keys(groups).sort((a,b)=>{
     const pa=phaseOrder[a]??2,pb=phaseOrder[b]??2;
     return pa!==pb?pa-pb:a.localeCompare(b);
   });
   for(const g of groupOrder){
     const matches=groups[g];
-    const gLabel=g==='SF'?'Semifinales':g==='R8'?'Cuartos de Final':g==='R16'?'Octavos de Final':g==='R32'?'Dieciseisavos de Final':`Grupo ${g}`;
+    const gLabel=g==='FIN'?'Final':g==='3P'?'Tercer y Cuarto Lugar':g==='R8'?'Cuartos de Final':g==='R16'?'Octavos de Final':g==='R32'?'Dieciseisavos de Final':`Grupo ${g}`;
     html+=`<div class="group-section"><div class="group-hdr">${gLabel} <small>${matches.length} partidos</small></div>`;
     for(const m of matches){
       const locked=isLocked(m.date,m.t);
@@ -860,7 +859,7 @@ function renderAdmin(){
     const r=RESULTS[m.id]||{h:'',a:''};
     return`<div class="admin-row">
       <div class="admin-teams">${m.fh} ${m.home} vs ${m.away} ${m.fa}
-        <div style="font-size:10px;color:var(--muted);margin-top:2px">${m.g==='SF'?'Semis':m.g==='R8'?'Cuartos':m.g==='R16'?'Octavos':m.g==='R32'?'Dieciseisavos':'Grupo '+m.g} · ${localDateFull(m.date,m.t)}</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:2px">${m.g==='FIN'?'Final':m.g==='3P'?'3er/4to':m.g==='R8'?'Cuartos':m.g==='R16'?'Octavos':m.g==='R32'?'Dieciseisavos':'Grupo '+m.g} · ${localDateFull(m.date,m.t)}</div>
       </div>
       <div class="admin-inputs">
         <input class="ain" type="number" min="0" max="20" value="${r.h}" id="ar-h-${m.id}" placeholder="—" onkeydown="if(event.key==='Enter')saveResult(${m.id})">
